@@ -2706,8 +2706,8 @@ input[type="checkbox"] {
   .head_layer--headline { left: 28%; top: 24%; width: 69%; }
   .head_layer--subhead { left: 7%; top: 40%; width: 91%; }
   .head_layer--map { right: 22.5%; top: 48%; width: 55%; }
-  .head_layer--gradient { left: 9%; top: 82%; width: 82%; }
-  .head_layer--partners { left: 19%; top: 82.4%; width: 62%; }
+  .head_layer--gradient { left: 0; top: 82%; width: 100%; }
+  .head_layer--partners { left: 19%; top: 82.4%; width: 62%; opacity: 1; animation: none; }
 }
 
 /* Tablets and narrower desktop windows keep the desktop composition,
