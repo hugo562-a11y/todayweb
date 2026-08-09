@@ -2073,6 +2073,11 @@ input[type="checkbox"] {
   100% { opacity: 1; transform: scaleX(1); transform-origin: left center; }
 }
 
+@keyframes head-enter-static {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .head_layer {
     opacity: 1;
@@ -2707,7 +2712,7 @@ input[type="checkbox"] {
   .head_layer--subhead { left: 7%; top: 40%; width: 91%; }
   .head_layer--map { right: 22.5%; top: 48%; width: 55%; }
   .head_layer--gradient { left: 0; top: 82%; width: 100%; }
-  .head_layer--partners { left: 19%; top: 82.4%; width: 62%; opacity: 1; animation: none; }
+  .head_layer--partners { left: 19%; top: 82.4%; width: 62%; animation-name: head-enter-static; animation-delay: 1s; }
 }
 
 /* Tablets and narrower desktop windows keep the desktop composition,
