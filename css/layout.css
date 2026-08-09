@@ -2002,12 +2002,82 @@ input[type="checkbox"] {
 
 .head_visual {
   display: block;
+  position: relative;
   width: 100%;
   height: 100%;
   min-width: auto;
   max-width: none;
-  background: url('../images/head_back.png') center center / cover no-repeat;
+  overflow: hidden;
+  background: #101b3b;
   pointer-events: none;
+}
+
+/* The scene uses the same 1920 × 1080 canvas as head_back.png.  Each artwork
+   remains an independent layer so it can be animated or repositioned later. */
+.head_scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 1689px);
+  aspect-ratio: 1920 / 1080;
+  transform: translate(-50%, -50%);
+  background: url('../head_svg/1x/背景底圖.png') center / 100% 100% no-repeat;
+}
+
+.head_layer {
+  position: absolute;
+  display: block;
+  height: auto;
+  opacity: 0;
+  animation-duration: 1.1s;
+  animation-timing-function: cubic-bezier(.16, 1, .3, 1);
+  animation-fill-mode: forwards;
+  will-change: opacity, transform;
+}
+
+.head_layer--forum { left: 12.2%; top: 21.1%; width: 27.9%; animation-name: head-enter-up; animation-delay: .1s; }
+.head_layer--chip { left: 3.0%; top: 29.2%; width: 8.7%; animation-name: head-enter-pop; animation-delay: .45s; }
+.head_layer--headline { left: 12.3%; top: 32.3%; width: 37.7%; animation-name: head-enter-left; animation-delay: .35s; }
+.head_layer--subhead { left: 12.8%; top: 44.4%; width: 48.2%; animation-name: head-enter-left; animation-delay: .62s; }
+.head_layer--map { right: .9%; top: 26.5%; width: 37.6%; animation-name: head-enter-right; animation-delay: .2s; animation-duration: 1.4s; }
+.head_layer--gradient { left: 0; top: 56.2%; width: 66.3%; animation-name: head-enter-fade; animation-delay: .88s; }
+.head_layer--partners { left: 4.6%; top: 58.6%; width: 46.5%; animation-name: head-enter-up; animation-delay: 1s; }
+
+@keyframes head-enter-left {
+  0% { opacity: 0; transform: translateX(-130px) skewX(-8deg); }
+  72% { opacity: 1; transform: translateX(12px) skewX(1deg); }
+  100% { opacity: 1; transform: translateX(0) skewX(0); }
+}
+
+@keyframes head-enter-right {
+  0% { opacity: 0; transform: translateX(180px) scale(.72) rotate(9deg); }
+  70% { opacity: 1; transform: translateX(-14px) scale(1.04) rotate(-1.5deg); }
+  100% { opacity: 1; transform: translateX(0) scale(1) rotate(0); }
+}
+
+@keyframes head-enter-up {
+  0% { opacity: 0; transform: translateY(80px) scale(.9); }
+  70% { opacity: 1; transform: translateY(-10px) scale(1.035); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes head-enter-pop {
+  0% { opacity: 0; transform: scale(0) rotate(-24deg); }
+  68% { opacity: 1; transform: scale(1.18) rotate(7deg); }
+  84% { opacity: 1; transform: scale(.94) rotate(-2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes head-enter-fade {
+  0% { opacity: 0; transform: scaleX(.15); transform-origin: left center; }
+  100% { opacity: 1; transform: scaleX(1); transform-origin: left center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .head_layer {
+    opacity: 1;
+    animation: none;
+  }
 }
 
 @media screen and (max-width: 960px) {
@@ -2021,6 +2091,7 @@ input[type="checkbox"] {
     left: auto;
     transform: none;
   }
+  .head_scene { width: max(100%, 1209px); }
 }
 
 .focus_grid {
@@ -2110,15 +2181,17 @@ input[type="checkbox"] {
 .field { padding-top: 8px; border-top: 1px solid #dce4e8; }
 
 @media screen and (max-width: 960px) {
-  #KV { margin-top: 66px; }
+  #KV { margin-top: 66px; min-height: 680px; }
+  .head_visual { width: 100%; max-width: 100%; transform: none; height: auto; min-height: 680px; }
   .focus_grid { grid-template-columns: 1fr; }
   .topic_tracks { grid-template-columns: 1fr; }
   .form_wrap { padding: 34px 26px; }
 }
 
 @media screen and (max-width: 480px) {
-  #KV { height: auto; margin-top: 66px; }
-  .head_visual { width: 100%; max-width: 100%; transform: none; }
+  #KV { height: auto; margin-top: 66px; min-height: 680px; }
+  .head_visual { width: 100%; max-width: 100%; transform: none; height: auto; min-height: 680px; }
+  .head_scene { width: max(100%, 1209px); }
   .sec { padding: 70px 18px; }
   .sec_title { font-size: 32px; }
   .focus_card { min-height: 0; padding: 24px; }
@@ -2598,4 +2671,66 @@ input[type="checkbox"] {
     filter: none;
     transform: none;
   }
+}
+
+/* Hero responsive composition: on narrower screens the artwork is rearranged
+   into a vertical stage instead of cropping the desktop 1920px canvas. */
+@media screen and (max-width: 1200px) {
+  #KV {
+    height: clamp(620px, 78vw, 760px);
+    min-height: 0;
+  }
+
+  .head_visual { height: 100%; min-height: 0; }
+  .head_scene {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    background-size: 100% 100%;
+  }
+
+  .head_layer--forum { left: 7%; top: 10%; width: 56%; }
+  .head_layer--chip { left: 7%; top: 25%; width: 15%; }
+  .head_layer--headline { left: 23%; top: 25.5%; width: 60%; }
+  .head_layer--subhead { left: 10%; top: 39%; width: 78%; }
+  .head_layer--map { right: 35%; top: 48%; width: 30%; }
+  .head_layer--gradient { left: 17.5%; top: 86%; width: 65%; }
+  .head_layer--partners { left: 25%; top: 87%; width: 50%; }
+}
+
+@media screen and (max-width: 560px) {
+  #KV { height: 650px; margin-top: 66px; }
+
+  .head_layer--forum { left: 6%; top: 9%; width: 70%; }
+  .head_layer--chip { left: 7%; top: 23%; width: 20%; }
+  .head_layer--headline { left: 28%; top: 24%; width: 69%; }
+  .head_layer--subhead { left: 7%; top: 37%; width: 91%; }
+  .head_layer--map { right: 22.5%; top: 45%; width: 55%; }
+  .head_layer--gradient { left: 9%; top: 78%; width: 82%; }
+  .head_layer--partners { left: 19%; top: 78.8%; width: 62%; }
+}
+
+/* Tablets and narrower desktop windows keep the desktop composition,
+   scaled as one complete 16:9 canvas instead of cropping its left edge. */
+@media screen and (min-width: 768px) and (max-width: 1689px) {
+  #KV {
+    height: min(56.25vw, 950px);
+    min-height: 0;
+  }
+
+  .head_visual { height: 100%; min-height: 0; }
+  .head_scene {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1920 / 1080;
+    background-size: 100% 100%;
+  }
+
+  .head_layer--forum { left: 12.2%; top: 21.1%; width: 27.9%; z-index: 2; }
+  .head_layer--chip { left: 3.0%; top: 29.2%; width: 8.7%; }
+  .head_layer--headline { left: 12.3%; top: 32.3%; width: 37.7%; }
+  .head_layer--subhead { left: 12.8%; top: 44.4%; width: 48.2%; }
+  .head_layer--map { right: .9%; top: 26.5%; width: 37.6%; }
+  .head_layer--gradient { left: 0; top: 56.2%; width: 66.3%; }
+  .head_layer--partners { left: 4.6%; top: 58.6%; width: 46.5%; }
 }

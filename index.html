@@ -95,7 +95,17 @@
 
 
   <div id="KV"><!--kv-->
-    <div class="head_visual" role="img" aria-label="永續競爭力 2.0 論壇：AI 賦能永續轉型，從 SBTi 到 Nature Positive"></div>
+    <div class="head_visual" role="img" aria-label="永續競爭力 2.0 論壇：AI 賦能永續轉型，從 SBTi 到 Nature Positive">
+      <div class="head_scene" aria-hidden="true">
+        <img class="head_layer head_layer--forum" src="head_svg/1x/永纈競爭力.png" alt="">
+        <img class="head_layer head_layer--chip" src="head_svg/1x/AI晶片.png" alt="">
+        <img class="head_layer head_layer--headline" src="head_svg/1x/賦能永續轉型.png" alt="">
+        <img class="head_layer head_layer--subhead" src="head_svg/1x/從SBTi到%20Nature%20Positive.png" alt="">
+        <img class="head_layer head_layer--map" src="head_svg/1x/永續地圖.png" alt="">
+        <img class="head_layer head_layer--gradient" src="head_svg/1x/白色漸層.png" alt="">
+        <img class="head_layer head_layer--partners" src="head_svg/1x/logo.png" alt="主辦單位與媒體協辦">
+      </div>
+    </div>
   </div>  <!--kv-->
 
 
@@ -633,6 +643,34 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       submitHandler();
+    });
+  })();
+</script>
+<script>
+  (function () {
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    var previousSize = { width: window.innerWidth, height: window.innerHeight };
+    var resizeTimer;
+
+    function replayHeroAnimation() {
+      if (reduceMotion.matches) return;
+
+      var visual = document.querySelector(".head_visual");
+      var layers = document.querySelectorAll(".head_layer");
+      if (!visual || !layers.length) return;
+
+      layers.forEach(function (layer) { layer.style.animation = "none"; });
+      void visual.offsetWidth;
+      layers.forEach(function (layer) { layer.style.animation = ""; });
+    }
+
+    window.addEventListener("resize", function () {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(function () {
+        var sizeChanged = previousSize.width !== window.innerWidth || previousSize.height !== window.innerHeight;
+        previousSize = { width: window.innerWidth, height: window.innerHeight };
+        if (sizeChanged) replayHeroAnimation();
+      }, 220);
     });
   })();
 </script>
