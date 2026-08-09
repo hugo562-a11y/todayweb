@@ -2006,7 +2006,7 @@ input[type="checkbox"] {
   height: 100%;
   min-width: auto;
   max-width: none;
-  background: url('../Images/head_back.png') center center / cover no-repeat;
+  background: url('../images/head_back.png') center center / cover no-repeat;
   pointer-events: none;
 }
 
