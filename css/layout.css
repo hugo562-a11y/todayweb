@@ -2088,6 +2088,7 @@ input[type="checkbox"] {
 }
 
 /* After the entrance sequence, keep the hero artwork gently alive in place. */
+.head_scene.is-idle .head_layer { opacity: 1; }
 .head_scene.is-idle .head_layer--forum { animation: headIdleFloat 6.6s ease-in-out infinite; }
 .head_scene.is-idle .head_layer--chip { animation: headIdleChip 4.8s ease-in-out infinite; }
 .head_scene.is-idle .head_layer--headline { animation: headIdleFloat 6s ease-in-out .5s infinite; }
