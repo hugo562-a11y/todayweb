@@ -316,6 +316,31 @@ $(document).ready(function () {
     }
   })();
 
+  // Give each main section a soft halo as it enters the viewport.
+  (function initSectionScrollGlow() {
+    if (!("IntersectionObserver" in window) ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var sections = document.querySelectorAll("#sec1, #sec2, #sec3, #sec5");
+    var glowObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var section = entry.target;
+        if (entry.isIntersecting) {
+          section.classList.remove("scroll_glow");
+          window.requestAnimationFrame(function () {
+            if (section.isConnected) section.classList.add("scroll_glow");
+          });
+        } else {
+          section.classList.remove("scroll_glow");
+        }
+      });
+    }, { threshold: 0.18 });
+
+    Array.prototype.forEach.call(sections, function (section) {
+      glowObserver.observe(section);
+    });
+  })();
+
   //animate
 
   var wow = new WOW({
