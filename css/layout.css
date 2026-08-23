@@ -491,11 +491,11 @@ nav a:hover:after {
 }
 
 .sec > .mid_content { position: relative; z-index: 1; }
-.sec.scroll_glow:after { content: ""; position: absolute; z-index: 0; top: 46%; left: 50%; width: min(78vw, 900px); aspect-ratio: 1; pointer-events: none; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.56) 0%, rgba(73,216,255,.24) 30%, rgba(73,216,255,.07) 52%, transparent 70%); transform: translate(-50%, -50%) scale(.68); opacity: 0; animation: sectionScrollGlow 1.25s cubic-bezier(.16,1,.3,1) both; }
+.sec.scroll_glow:after { content: ""; position: absolute; z-index: 0; top: 46%; left: 50%; width: min(78vw, 900px); aspect-ratio: 1; pointer-events: none; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.56) 0%, rgba(73,216,255,.24) 30%, rgba(73,216,255,.07) 52%, transparent 70%); transform: translate(-50%, -50%) scale(.68); opacity: 0; animation: sectionScrollGlow 2.4s cubic-bezier(.16,1,.3,1) infinite; }
 
 @keyframes sectionScrollGlow {
   0% { opacity: 0; transform: translate(-50%, -50%) scale(.68); }
-  42% { opacity: .9; transform: translate(-50%, -50%) scale(1); }
+  42% { opacity: .78; transform: translate(-50%, -50%) scale(1); }
   100% { opacity: 0; transform: translate(-50%, -50%) scale(1.16); }
 }
 
