@@ -2694,6 +2694,8 @@ input[type="checkbox"] {
 .speaker_card { position: relative; height: 360px; min-width: 0; flex: 1 1 0; overflow: hidden; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); transition: flex-basis .5s cubic-bezier(.16,1,.3,1), height .5s cubic-bezier(.16,1,.3,1), transform .35s ease, box-shadow .35s ease; }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
+.speaker_card.is-flashing:after,
+.speaker_card.is-expanded:after { box-shadow: inset 0 0 0 3px #49d8ff; }
 .speaker_card:before { content: ""; position: absolute; z-index: 3; top: -35%; left: -100%; width: 48%; height: 180%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.66), transparent); transform: rotate(18deg); transition: left .75s cubic-bezier(.16,1,.3,1); }
 .speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; min-height: 82px; padding: 8px; box-sizing: border-box; color: #fff; }
 .speaker_copy > span { display: block; overflow: hidden; color: #49d8ff; font-size: 9px; font-weight: 800; letter-spacing: .03em; white-space: nowrap; text-overflow: ellipsis; }

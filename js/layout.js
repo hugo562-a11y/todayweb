@@ -139,6 +139,7 @@ $(document).ready(function () {
       var activeCard = null;
       var expandTimer = null;
       var supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+      var lastTouchToggle = 0;
 
       function clearActiveCard() {
         window.clearTimeout(expandTimer);
@@ -159,6 +160,16 @@ $(document).ready(function () {
           activeCard.classList.remove("is-flashing");
           activeCard.classList.add("is-expanded");
         }, 320);
+      }
+
+      function toggleTouchCard(card) {
+        if (!card || !speakerCards.contains(card)) return;
+        if (activeCard === card) {
+          clearActiveCard();
+        } else {
+          clearActiveCard();
+          activateCard(card, false);
+        }
       }
 
       if (supportsHover) {
@@ -182,20 +193,19 @@ $(document).ready(function () {
 
           if (outsideRow || !isOnActiveCard) clearActiveCard();
         });
-      } else {
-        speakerCards.addEventListener("click", function (event) {
-          var card = event.target.closest(".speaker_card");
-          if (!card || !speakerCards.contains(card)) return;
-
-          event.preventDefault();
-          if (activeCard === card) {
-            clearActiveCard();
-          } else {
-            clearActiveCard();
-            activateCard(card, false);
-          }
-        });
       }
+
+      speakerCards.addEventListener("pointerup", function (event) {
+        if (event.pointerType === "mouse") return;
+        lastTouchToggle = Date.now();
+        toggleTouchCard(event.target.closest(".speaker_card"));
+      });
+
+      // Fallback for older touch browsers that do not provide Pointer Events.
+      speakerCards.addEventListener("click", function (event) {
+        if (Date.now() - lastTouchToggle < 600) return;
+        if (!supportsHover) toggleTouchCard(event.target.closest(".speaker_card"));
+      });
     }, 300);
   });
 
