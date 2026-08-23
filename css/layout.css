@@ -2176,9 +2176,9 @@ input[type="checkbox"] {
 
 /* Gentle idle motion for the non-agenda, non-form content. */
 #sec1 .intro_txt { animation: contentFloat 5.8s ease-in-out infinite; }
-.focus_card { animation: contentFloat 5.2s ease-in-out infinite; }
-.focus_card:nth-child(2) { animation-delay: .7s; }
-.focus_card:nth-child(3) { animation-delay: 1.4s; }
+.focus_card { animation: contentFloat 4.7s ease-in-out infinite; }
+.focus_card:nth-child(2) { animation-duration: 6.1s; animation-delay: .7s; }
+.focus_card:nth-child(3) { animation-duration: 5.4s; animation-delay: 1.4s; }
 .focus_card:hover,
 .focus_card:focus-visible,
 .focus_card:active { animation: none; }
@@ -2661,9 +2661,9 @@ input[type="checkbox"] {
 .session_ribbon span:last-child { border-color: #ffae18; background: rgba(255,174,24,.08); }
 .session_ribbon b { margin-right: 8px; color: #fff; font-weight: 900; }
 
-.full_lineup { animation: lineupBreathe 6s ease-in-out infinite; }
-.session_ribbon span { animation: ribbonBreathe 4.6s ease-in-out infinite; }
-.session_ribbon span:last-child { animation-delay: .7s; }
+.full_lineup { animation: lineupBreathe 6.4s ease-in-out infinite; }
+.session_ribbon span { animation: ribbonBreathe 4.3s ease-in-out infinite; }
+.session_ribbon span:last-child { animation-duration: 6.1s; animation-delay: .7s; }
 
 @keyframes speakerIdleFloat {
   0%, 100% { transform: translateY(0); }
@@ -2794,12 +2794,13 @@ input[type="checkbox"] {
 .speaker_card.is-framed { transform: translateY(-3px) scale(1.025); box-shadow: 0 0 26px rgba(255,255,255,.32), 0 18px 38px rgba(0,0,0,.30); }
 .speaker_card.is-expanded { z-index: 10; flex: 0 0 360px; height: 360px; transform: translateY(-6px); box-shadow: 0 0 30px rgba(255,255,255,.36), 0 18px 42px rgba(0,0,0,.38); }
 .speaker_card:not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerIdleFloat 5.6s ease-in-out infinite; }
-.speaker_card:nth-child(2) { animation-delay: .45s; }
-.speaker_card:nth-child(3) { animation-delay: .9s; }
-.speaker_card:nth-child(4) { animation-delay: 1.35s; }
-.speaker_card:nth-child(5) { animation-delay: 1.8s; }
-.speaker_card:nth-child(6) { animation-delay: 2.25s; }
-.speaker_card:nth-child(7) { animation-delay: 2.7s; }
+.speaker_card:nth-child(1) { animation-duration: 4.6s; animation-delay: .15s; }
+.speaker_card:nth-child(2) { animation-duration: 5.8s; animation-delay: .45s; }
+.speaker_card:nth-child(3) { animation-duration: 6.7s; animation-delay: .9s; }
+.speaker_card:nth-child(4) { animation-duration: 5.1s; animation-delay: 1.35s; }
+.speaker_card:nth-child(5) { animation-duration: 7.2s; animation-delay: 1.8s; }
+.speaker_card:nth-child(6) { animation-duration: 6.0s; animation-delay: 2.25s; }
+.speaker_card:nth-child(7) { animation-duration: 4.9s; animation-delay: 2.7s; }
 .speaker_card.is-flashing:before,
 .speaker_card.is-expanded:before { left: 155%; }
 .speaker_card.is-expanded img {
