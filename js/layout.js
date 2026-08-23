@@ -136,49 +136,6 @@ $(document).ready(function () {
     if (!speakerCards) return;
     window.setTimeout(function () {
       speakerCards.classList.add("is-ready");
-
-      function drawSpeakerFrame(card) {
-        var frame = card.querySelector(".speaker_frame");
-        var svg = frame && frame.querySelector("svg");
-        var path = svg && svg.querySelector("path");
-        if (!svg || !path) return;
-
-        var width = Math.max(1, Math.round(card.clientWidth));
-        var height = Math.max(1, Math.round(card.clientHeight));
-        var inset = 2;
-        var cut = 22;
-        svg.setAttribute("viewBox", "0 0 " + width + " " + height);
-        path.setAttribute("d", "M " + inset + " " + inset +
-          " H " + (width - cut) +
-          " L " + (width - inset) + " " + cut +
-          " V " + (height - inset) +
-          " H " + cut +
-          " L " + inset + " " + (height - cut) + " Z");
-      }
-
-      speakerCards.querySelectorAll(".speaker_card").forEach(function (card) {
-        if (!card.querySelector(".speaker_frame")) {
-          var frame = document.createElement("span");
-          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-          var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-          frame.className = "speaker_frame";
-          frame.setAttribute("aria-hidden", "true");
-          svg.setAttribute("preserveAspectRatio", "none");
-          svg.appendChild(path);
-          frame.appendChild(svg);
-          card.appendChild(frame);
-        }
-        drawSpeakerFrame(card);
-      });
-
-      if (window.ResizeObserver) {
-        var frameObserver = new ResizeObserver(function (entries) {
-          entries.forEach(function (entry) { drawSpeakerFrame(entry.target); });
-        });
-        speakerCards.querySelectorAll(".speaker_card").forEach(function (card) {
-          frameObserver.observe(card);
-        });
-      }
       var activeCard = null;
       var expandTimer = null;
       var expandAfterFrame = false;
