@@ -136,30 +136,50 @@ $(document).ready(function () {
     if (!speakerCards) return;
     window.setTimeout(function () {
       speakerCards.classList.add("is-ready");
+      speakerCards.querySelectorAll(".speaker_card").forEach(function (card) {
+        if (card.querySelector(".speaker_frame")) return;
+        var frame = document.createElement("span");
+        frame.className = "speaker_frame";
+        frame.setAttribute("aria-hidden", "true");
+        card.appendChild(frame);
+      });
       var activeCard = null;
       var expandTimer = null;
+      var expandAfterFrame = false;
       var supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
       var lastTouchToggle = 0;
 
       function clearActiveCard() {
         window.clearTimeout(expandTimer);
         if (!activeCard) return;
-        activeCard.classList.remove("is-flashing", "is-expanded");
+        activeCard.classList.remove("is-flashing", "is-framed", "is-expanded");
         speakerCards.classList.remove("has-active-card");
+        expandAfterFrame = false;
         activeCard = null;
       }
 
-      function activateCard(card, lockRow) {
+      function showCardFrame(card, lockRow, expandWhenReady) {
         if (!card || !speakerCards.contains(card) || activeCard) return;
 
         activeCard = card;
+        expandAfterFrame = Boolean(expandWhenReady);
         if (lockRow) speakerCards.classList.add("has-active-card");
         activeCard.classList.add("is-flashing");
         expandTimer = window.setTimeout(function () {
           if (!activeCard) return;
           activeCard.classList.remove("is-flashing");
-          activeCard.classList.add("is-expanded");
+          activeCard.classList.add("is-framed");
+          if (expandAfterFrame) activeCard.classList.add("is-expanded");
         }, 320);
+      }
+
+      function expandActiveCard() {
+        if (!activeCard || activeCard.classList.contains("is-expanded")) return;
+        if (activeCard.classList.contains("is-flashing")) {
+          expandAfterFrame = true;
+        } else {
+          activeCard.classList.add("is-expanded");
+        }
       }
 
       function toggleTouchCard(card) {
@@ -168,14 +188,14 @@ $(document).ready(function () {
           clearActiveCard();
         } else {
           clearActiveCard();
-          activateCard(card, false);
+          showCardFrame(card, false, true);
         }
       }
 
       if (supportsHover) {
         speakerCards.addEventListener("pointerover", function (event) {
           if (event.pointerType !== "mouse") return;
-          activateCard(event.target.closest(".speaker_card"), true);
+          showCardFrame(event.target.closest(".speaker_card"), true, false);
         });
 
         // The visible gaps are deliberate exit zones. During expansion,
@@ -205,7 +225,17 @@ $(document).ready(function () {
       // Fallback for older touch browsers that do not provide Pointer Events.
       speakerCards.addEventListener("click", function (event) {
         if (Date.now() - lastTouchToggle < 600) return;
-        if (!supportsHover) toggleTouchCard(event.target.closest(".speaker_card"));
+        var card = event.target.closest(".speaker_card");
+        if (!supportsHover) {
+          toggleTouchCard(card);
+        } else if (card && speakerCards.contains(card)) {
+          if (activeCard !== card) {
+            clearActiveCard();
+            showCardFrame(card, true, true);
+          } else {
+            expandActiveCard();
+          }
+        }
       });
     }, 300);
   });
