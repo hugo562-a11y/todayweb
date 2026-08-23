@@ -2690,6 +2690,7 @@ input[type="checkbox"] {
 .speaker_showcase .sec_title { color: #fff; }
 .speaker_cards { display: flex; align-items: flex-start; gap: 14px; margin-top: 48px; padding: 10px 0; }
 .speaker_cards:not(.is-ready) .speaker_card { pointer-events: none; }
+.speaker_cards.has-active-card .speaker_card:not(.is-flashing):not(.is-expanded) { pointer-events: none; }
 .speaker_card { position: relative; height: 360px; min-width: 0; flex: 1 1 0; overflow: hidden; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); transition: flex-basis .5s cubic-bezier(.16,1,.3,1), transform .35s ease, box-shadow .35s ease; }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }

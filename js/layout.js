@@ -146,6 +146,7 @@ $(document).ready(function () {
         window.clearTimeout(expandTimer);
         if (!activeCard) return;
         activeCard.classList.remove("is-flashing", "is-expanded");
+        speakerCards.classList.remove("has-active-card");
         activeCard = null;
       }
 
@@ -154,6 +155,7 @@ $(document).ready(function () {
         if (!card || !speakerCards.contains(card) || activeCard) return;
 
         activeCard = card;
+        speakerCards.classList.add("has-active-card");
         activeCard.classList.add("is-flashing");
         expandTimer = window.setTimeout(function () {
           if (!activeCard) return;
@@ -162,19 +164,21 @@ $(document).ready(function () {
         }, 320);
       });
 
-      // Do not use pointerleave on the flex row: when a card expands, the
-      // browser can briefly retarget the pointer to a neighbouring card.
-      // Instead, only close it after the pointer has genuinely left the row.
+      // The visible gaps are deliberate exit zones. During expansion, inactive
+      // cards do not receive the pointer, so a layout reflow cannot hand the
+      // active state to the next card. Moving into a gap closes the card.
       document.addEventListener("pointermove", function (event) {
         if (!activeCard || event.pointerType !== "mouse") return;
 
         var bounds = speakerCards.getBoundingClientRect();
-        var outsideRow = event.clientX < bounds.left - 24 ||
-          event.clientX > bounds.right + 24 ||
-          event.clientY < bounds.top - 24 ||
-          event.clientY > bounds.bottom + 24;
+        var outsideRow = event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom;
+        var hitElement = document.elementFromPoint(event.clientX, event.clientY);
+        var isOnActiveCard = hitElement && hitElement.closest(".speaker_card") === activeCard;
 
-        if (outsideRow) clearActiveCard();
+        if (outsideRow || !isOnActiveCard) clearActiveCard();
       });
     }, 300);
   });
