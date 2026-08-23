@@ -2156,7 +2156,7 @@ input[type="checkbox"] {
 
 @keyframes contentFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-8px); }
 }
 
 .section_lead {
@@ -2638,17 +2638,17 @@ input[type="checkbox"] {
 
 @keyframes speakerIdleFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes lineupBreathe {
   0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(73,216,255,0); }
-  50% { transform: translateY(-3px); box-shadow: 0 0 24px rgba(73,216,255,.12); }
+  50% { transform: translateY(-5px); box-shadow: 0 0 24px rgba(73,216,255,.12); }
 }
 
 @keyframes ribbonBreathe {
   0%, 100% { transform: translateY(0); filter: brightness(1); }
-  50% { transform: translateY(-3px); filter: brightness(1.13); }
+  50% { transform: translateY(-5px); filter: brightness(1.13); }
 }
 
 @keyframes speakerGridDrift {
@@ -2846,11 +2846,6 @@ input[type="checkbox"] {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #sec1 .intro_txt,
-  .focus_card,
-  .speaker_card,
-  .full_lineup,
-  .session_ribbon span { animation: none !important; }
   #sec3.agenda_motion .agenda_info,
   #sec3.agenda_motion .agenda_content_wrap,
   #sec3.agenda_motion .agenda_body > .agenda_body_item,
