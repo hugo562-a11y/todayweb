@@ -2756,6 +2756,9 @@ input[type="checkbox"] {
 .speaker_copy p { margin-top: 5px; font-size: 10px; line-height: 1.35; }
 .speaker_short { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .speaker_full { display: none; }
+.speaker_card.is-flashing:after,
+.speaker_card.is-framed:after,
+.speaker_card.is-expanded:after { background: radial-gradient(circle 120px at var(--speaker-glow-x, 50%) var(--speaker-glow-y, 45%), rgba(255,255,255,.36) 0%, rgba(73,216,255,.16) 35%, rgba(73,216,255,.04) 56%, transparent 74%), linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); }
 .speaker_card.is-flashing { z-index: 10; }
 .speaker_card.is-framed { z-index: 10; }
 .speaker_card.is-flashing,

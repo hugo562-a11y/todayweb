@@ -151,6 +151,15 @@ $(document).ready(function () {
         activeCard = null;
       }
 
+      function positionSpeakerGlow(card, event) {
+        if (!card || !event) return;
+        var bounds = card.getBoundingClientRect();
+        var x = Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100));
+        var y = Math.max(0, Math.min(100, (event.clientY - bounds.top) / bounds.height * 100));
+        card.style.setProperty("--speaker-glow-x", x.toFixed(2) + "%");
+        card.style.setProperty("--speaker-glow-y", y.toFixed(2) + "%");
+      }
+
       function showCardFrame(card, lockRow, expandWhenReady) {
         if (!card || !speakerCards.contains(card) || activeCard) return;
 
@@ -188,7 +197,9 @@ $(document).ready(function () {
       if (supportsHover) {
         speakerCards.addEventListener("pointerover", function (event) {
           if (event.pointerType !== "mouse") return;
-          showCardFrame(event.target.closest(".speaker_card"), true, false);
+          var card = event.target.closest(".speaker_card");
+          positionSpeakerGlow(card, event);
+          showCardFrame(card, true, false);
         });
 
         // The visible gaps are deliberate exit zones. During expansion,
@@ -205,7 +216,11 @@ $(document).ready(function () {
           var hitElement = document.elementFromPoint(event.clientX, event.clientY);
           var isOnActiveCard = hitElement && hitElement.closest(".speaker_card") === activeCard;
 
-          if (outsideRow || !isOnActiveCard) clearActiveCard();
+          if (outsideRow || !isOnActiveCard) {
+            clearActiveCard();
+          } else {
+            positionSpeakerGlow(activeCard, event);
+          }
         });
       }
 
