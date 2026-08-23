@@ -129,12 +129,40 @@ $(document).ready(function () {
     $("html,body").animate({ scrollTop: $(ta_value).offset().top }, 800);
   });
 
-  // Enable speaker-card interactions only after the initial image layout settles.
+  // Keep the active card controlled by the stable card row, rather than by a
+  // card's own hover state. A card changing width then cannot cancel its hover.
   window.addEventListener("load", function () {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
     window.setTimeout(function () {
       speakerCards.classList.add("is-ready");
+
+      if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+
+      var activeCard = null;
+      var expandTimer = null;
+
+      function clearActiveCard() {
+        window.clearTimeout(expandTimer);
+        if (!activeCard) return;
+        activeCard.classList.remove("is-flashing", "is-expanded");
+        activeCard = null;
+      }
+
+      speakerCards.addEventListener("pointerover", function (event) {
+        var card = event.target.closest(".speaker_card");
+        if (!card || !speakerCards.contains(card) || activeCard) return;
+
+        activeCard = card;
+        activeCard.classList.add("is-flashing");
+        expandTimer = window.setTimeout(function () {
+          if (!activeCard) return;
+          activeCard.classList.remove("is-flashing");
+          activeCard.classList.add("is-expanded");
+        }, 320);
+      });
+
+      speakerCards.addEventListener("pointerleave", clearActiveCard);
     }, 300);
   });
 
