@@ -2087,6 +2087,35 @@ input[type="checkbox"] {
   to { opacity: 1; }
 }
 
+/* After the entrance sequence, keep the hero artwork gently alive in place. */
+.head_scene.is-idle .head_layer--forum { animation: headIdleFloat 6.6s ease-in-out infinite; }
+.head_scene.is-idle .head_layer--chip { animation: headIdleChip 4.8s ease-in-out infinite; }
+.head_scene.is-idle .head_layer--headline { animation: headIdleFloat 6s ease-in-out .5s infinite; }
+.head_scene.is-idle .head_layer--subhead { animation: headIdleFloat 6.8s ease-in-out 1s infinite; }
+.head_scene.is-idle .head_layer--map { animation: headIdleMap 7.2s ease-in-out .35s infinite; }
+.head_scene.is-idle .head_layer--gradient { animation: headIdleGlow 5.8s ease-in-out infinite; }
+.head_scene.is-idle .head_layer--partners { animation: headIdleFloat 7s ease-in-out 1.3s infinite; }
+
+@keyframes headIdleFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
+}
+
+@keyframes headIdleChip {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.5deg); }
+  50% { transform: translate3d(5px, -9px, 0) rotate(2deg); }
+}
+
+@keyframes headIdleMap {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); filter: brightness(1); }
+  50% { transform: translate3d(-8px, -12px, 0) scale(1.025); filter: brightness(1.08); }
+}
+
+@keyframes headIdleGlow {
+  0%, 100% { opacity: .86; transform: translate3d(0, 0, 0) scaleX(1); }
+  50% { opacity: 1; transform: translate3d(0, -4px, 0) scaleX(1.02); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .head_layer {
     opacity: 1;

@@ -12,7 +12,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" type="text/css" media="screen, projection" />
   <link rel="stylesheet" href="css/lightslider.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="css/layout.css?v=20260823-visible-idle-motion" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/layout.css?v=20260823-hero-idle-motion" type="text/css" media="screen, projection" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"  />
   <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
   <script type="text/javascript" src="js/imagesloaded.pkgd.min.js"></script>
@@ -616,17 +616,28 @@
     var previousSize = { width: window.innerWidth, height: window.innerHeight };
     var resizeTimer;
 
+    function startHeroIdle() {
+      var scene = document.querySelector(".head_scene");
+      if (!scene) return;
+      scene.classList.add("is-idle");
+    }
+
     function replayHeroAnimation() {
-      if (reduceMotion.matches) return;
-
       var visual = document.querySelector(".head_visual");
+      var scene = document.querySelector(".head_scene");
       var layers = document.querySelectorAll(".head_layer");
-      if (!visual || !layers.length) return;
+      if (!visual || !scene || !layers.length) return;
 
+      scene.classList.remove("is-idle");
       layers.forEach(function (layer) { layer.style.animation = "none"; });
       void visual.offsetWidth;
       layers.forEach(function (layer) { layer.style.animation = ""; });
+      window.setTimeout(startHeroIdle, 1650);
     }
+
+    window.addEventListener("load", function () {
+      window.setTimeout(startHeroIdle, 1650);
+    });
 
     window.addEventListener("resize", function () {
       window.clearTimeout(resizeTimer);
