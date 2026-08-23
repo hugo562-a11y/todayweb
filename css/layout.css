@@ -2671,6 +2671,43 @@ input[type="checkbox"] {
   50% { transform: translateY(-8px); }
 }
 
+@keyframes speakerDriftOne {
+  0%, 100% { transform: translateY(0); }
+  48% { transform: translateY(-9px); }
+}
+
+@keyframes speakerDriftTwo {
+  0%, 100% { transform: translateY(-3px); }
+  34% { transform: translateY(-11px); }
+  72% { transform: translateY(1px); }
+}
+
+@keyframes speakerDriftThree {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  52% { transform: translate3d(4px, -7px, 0); }
+}
+
+@keyframes speakerDriftFour {
+  0%, 100% { transform: translateY(-5px); }
+  36% { transform: translateY(1px); }
+  74% { transform: translateY(-10px); }
+}
+
+@keyframes speakerDriftFive {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.012); }
+}
+
+@keyframes speakerDriftSix {
+  0%, 100% { transform: translate3d(2px, 0, 0); }
+  58% { transform: translate3d(-3px, -9px, 0); }
+}
+
+@keyframes speakerDriftSeven {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(3px); }
+}
+
 @keyframes lineupBreathe {
   0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(73,216,255,0); }
   50% { transform: translateY(-5px); box-shadow: 0 0 24px rgba(73,216,255,.12); }
@@ -2795,13 +2832,13 @@ input[type="checkbox"] {
 .speaker_card.is-framed { transform: translateY(-3px) scale(1.025); box-shadow: 0 0 26px rgba(255,255,255,.32), 0 18px 38px rgba(0,0,0,.30); }
 .speaker_card.is-expanded { z-index: 10; flex: 0 0 360px; height: 360px; transform: translateY(-6px); box-shadow: 0 0 30px rgba(255,255,255,.36), 0 18px 42px rgba(0,0,0,.38); }
 .speaker_card:not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerIdleFloat 5.6s ease-in-out infinite; }
-.speaker_card:nth-child(1) { animation-duration: 4.6s; animation-delay: .15s; }
-.speaker_card:nth-child(2) { animation-duration: 5.8s; animation-delay: .45s; }
-.speaker_card:nth-child(3) { animation-duration: 6.7s; animation-delay: .9s; }
-.speaker_card:nth-child(4) { animation-duration: 5.1s; animation-delay: 1.35s; }
-.speaker_card:nth-child(5) { animation-duration: 7.2s; animation-delay: 1.8s; }
-.speaker_card:nth-child(6) { animation-duration: 6.0s; animation-delay: 2.25s; }
-.speaker_card:nth-child(7) { animation-duration: 4.9s; animation-delay: 2.7s; }
+.speaker_card:nth-child(1):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftOne 4.6s ease-in-out infinite !important; }
+.speaker_card:nth-child(2):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftTwo 5.9s ease-in-out infinite !important; }
+.speaker_card:nth-child(3):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftThree 6.7s ease-in-out infinite !important; }
+.speaker_card:nth-child(4):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftFour 5.2s ease-in-out infinite !important; }
+.speaker_card:nth-child(5):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftFive 7.3s ease-in-out infinite !important; }
+.speaker_card:nth-child(6):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftSix 6.1s ease-in-out infinite !important; }
+.speaker_card:nth-child(7):not(.is-flashing):not(.is-framed):not(.is-expanded) { animation: speakerDriftSeven 4.8s ease-in-out infinite !important; }
 .speaker_card.is-flashing:before,
 .speaker_card.is-expanded:before { left: 155%; }
 .speaker_card.is-expanded img {
