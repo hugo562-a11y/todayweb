@@ -2455,10 +2455,18 @@ input[type="checkbox"] {
 .portrait_info > span {
   display: inline-block;
   margin-bottom: 4px;
+  overflow: hidden;
   color: #49d8ff;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: .08em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.portrait_card:hover .portrait_info > span {
+  overflow: visible;
+  white-space: normal;
 }
 
 .portrait_info > span:before {
