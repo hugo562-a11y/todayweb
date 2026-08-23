@@ -2287,7 +2287,7 @@ input[type="checkbox"] {
 
 .speaker_stage {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 14px;
   margin-top: 58px;
   overflow: hidden;
@@ -2299,7 +2299,7 @@ input[type="checkbox"] {
   min-width: 0;
   min-height: 360px;
   flex: 1 1 0;
-  max-width: calc((100% - 56px) / 5);
+  max-width: calc((100% - 84px) / 7);
   background: #153660;
   isolation: isolate;
   clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
@@ -2316,21 +2316,28 @@ input[type="checkbox"] {
 
 .portrait_card:hover {
   flex: 2 1 0;
+  max-width: none;
   z-index: 5;
   box-shadow: 0 28px 70px rgba(19,192,255,.25), 0 0 0 1px rgba(73,216,255,.45);
 }
 
 .portrait_card--new {
-  flex: 0 1 calc(50% - 7px);
-  max-width: calc(50% - 7px);
+  flex: 1 1 0;
+  max-width: calc((100% - 84px) / 7);
 }
 
 .portrait_card--new:hover {
-  flex: 0 1 calc(50% - 7px);
+  flex: 2 1 0;
+  max-width: none;
 }
 
 .speaker_stage:hover .portrait_card--new {
-  flex: 0 1 calc(50% - 7px);
+  flex: 1 1 0;
+}
+
+.speaker_stage:hover .portrait_card--new:hover {
+  flex: 2 1 0;
+  max-width: none;
 }
 
 .speaker_stage.is_visible .portrait_card {
