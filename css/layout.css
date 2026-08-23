@@ -2108,17 +2108,30 @@ input[type="checkbox"] {
 }
 
 .focus_card {
+  position: relative;
   min-height: 180px;
   padding: 28px;
   box-sizing: border-box;
+  overflow: hidden;
   border-radius: 28px 0 28px 0;
   color: #fff;
   background: linear-gradient(145deg, #12305d, #176da1);
   box-shadow: 0 18px 40px rgba(1, 40, 66, .14);
+  transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;
 }
 
 .focus_card:nth-child(2) { background: linear-gradient(145deg, #174c71, #159db2); }
 .focus_card:nth-child(3) { background: linear-gradient(145deg, #155485, #775aa8); }
+.focus_card:after { content: ""; position: absolute; top: -40%; left: -85%; width: 42%; height: 190%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); transform: rotate(18deg); transition: left .7s cubic-bezier(.16,1,.3,1); }
+.focus_card:hover,
+.focus_card:focus-visible,
+.focus_card:active { z-index: 1; transform: translateY(-5px) scale(1.035); box-shadow: 0 24px 46px rgba(1,40,66,.26), 0 0 22px rgba(255,255,255,.22); }
+.focus_card:hover:after,
+.focus_card:focus-visible:after,
+.focus_card:active:after { left: 150%; }
+.focus_card > span,
+.focus_card h3,
+.focus_card p { position: relative; z-index: 1; }
 .focus_card > span { color: #ffae18; font-size: 14px; font-weight: 800; letter-spacing: .14em; }
 .focus_card h3 { margin-top: 12px; font-size: 24px; font-weight: 800; }
 .focus_card p { margin-top: 10px; font-size: 16px; line-height: 1.7; color: rgba(255,255,255,.88); }
