@@ -2695,7 +2695,9 @@ input[type="checkbox"] {
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
 .speaker_card:before { content: ""; position: absolute; z-index: 3; top: -35%; left: -100%; width: 48%; height: 180%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.66), transparent); transform: rotate(18deg); transition: left .75s cubic-bezier(.16,1,.3,1); }
-.speaker_frame { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; opacity: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M1 1H94L99 6V99H6L1 94Z' fill='none' stroke='%2349d8ff' stroke-width='2.5' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center/100% 100% no-repeat; }
+.speaker_frame { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; opacity: 0; }
+.speaker_frame svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.speaker_frame path { fill: none; stroke: #49d8ff; stroke-width: 3; vector-effect: non-scaling-stroke; }
 .speaker_card.is-flashing .speaker_frame { opacity: 1; animation: speakerFrameGlow .32s ease-out both; }
 .speaker_card.is-framed .speaker_frame,
 .speaker_card.is-expanded .speaker_frame { opacity: 1; filter: drop-shadow(0 0 7px rgba(73,216,255,.78)); }
