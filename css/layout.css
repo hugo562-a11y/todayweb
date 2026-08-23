@@ -2703,7 +2703,7 @@ input[type="checkbox"] {
 .speaker_full { display: none; }
 .speaker_card.is-flashing:after,
 .speaker_card.is-framed:after,
-.speaker_card.is-expanded:after { background: radial-gradient(ellipse at 50% 43%, rgba(255,255,255,.14) 0%, rgba(255,255,255,.06) 34%, rgba(2,12,30,.12) 68%, rgba(2,12,30,.28) 100%), linear-gradient(transparent 34%, rgba(2,12,30,.90) 78%); }
+.speaker_card.is-expanded:after { background: radial-gradient(circle closest-side at 50% 43%, rgba(255,255,255,.14) 0%, rgba(255,255,255,.06) 34%, rgba(2,12,30,.12) 68%, rgba(2,12,30,.28) 100%), linear-gradient(transparent 34%, rgba(2,12,30,.90) 78%); }
 .speaker_card.is-flashing { z-index: 10; }
 .speaker_card.is-framed { z-index: 10; }
 .speaker_card.is-expanded { z-index: 10; flex: 0 0 360px; height: 360px; transform: translateY(-6px); box-shadow: 0 18px 42px rgba(0,0,0,.38); }
