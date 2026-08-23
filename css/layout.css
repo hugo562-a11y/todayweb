@@ -2695,7 +2695,7 @@ input[type="checkbox"] {
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
 .speaker_card:before { content: ""; position: absolute; z-index: 3; top: -35%; left: -100%; width: 48%; height: 180%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.66), transparent); transform: rotate(18deg); transition: left .75s cubic-bezier(.16,1,.3,1); }
-.speaker_frame { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; opacity: 0; }
+.speaker_frame { position: absolute; z-index: 4; inset: 0; display: block; padding: 3px; pointer-events: none; opacity: 0; background: #49d8ff; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
 .speaker_frame svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .speaker_frame path { fill: none; stroke: #49d8ff; stroke-width: 3; vector-effect: non-scaling-stroke; }
 .speaker_card.is-flashing .speaker_frame { opacity: 1; animation: speakerFrameGlow .32s ease-out both; }
