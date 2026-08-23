@@ -136,11 +136,9 @@ $(document).ready(function () {
     if (!speakerCards) return;
     window.setTimeout(function () {
       speakerCards.classList.add("is-ready");
-
-      if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-
       var activeCard = null;
       var expandTimer = null;
+      var supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
       function clearActiveCard() {
         window.clearTimeout(expandTimer);
@@ -150,36 +148,54 @@ $(document).ready(function () {
         activeCard = null;
       }
 
-      speakerCards.addEventListener("pointerover", function (event) {
-        var card = event.target.closest(".speaker_card");
+      function activateCard(card, lockRow) {
         if (!card || !speakerCards.contains(card) || activeCard) return;
 
         activeCard = card;
-        speakerCards.classList.add("has-active-card");
+        if (lockRow) speakerCards.classList.add("has-active-card");
         activeCard.classList.add("is-flashing");
         expandTimer = window.setTimeout(function () {
           if (!activeCard) return;
           activeCard.classList.remove("is-flashing");
           activeCard.classList.add("is-expanded");
         }, 320);
-      });
+      }
 
-      // The visible gaps are deliberate exit zones. During expansion, inactive
-      // cards do not receive the pointer, so a layout reflow cannot hand the
-      // active state to the next card. Moving into a gap closes the card.
-      document.addEventListener("pointermove", function (event) {
-        if (!activeCard || event.pointerType !== "mouse") return;
+      if (supportsHover) {
+        speakerCards.addEventListener("pointerover", function (event) {
+          activateCard(event.target.closest(".speaker_card"), true);
+        });
 
-        var bounds = speakerCards.getBoundingClientRect();
-        var outsideRow = event.clientX < bounds.left ||
-          event.clientX > bounds.right ||
-          event.clientY < bounds.top ||
-          event.clientY > bounds.bottom;
-        var hitElement = document.elementFromPoint(event.clientX, event.clientY);
-        var isOnActiveCard = hitElement && hitElement.closest(".speaker_card") === activeCard;
+        // The visible gaps are deliberate exit zones. During expansion,
+        // inactive cards do not receive the pointer, so a layout reflow cannot
+        // hand the active state to the next card.
+        document.addEventListener("pointermove", function (event) {
+          if (!activeCard || event.pointerType !== "mouse") return;
 
-        if (outsideRow || !isOnActiveCard) clearActiveCard();
-      });
+          var bounds = speakerCards.getBoundingClientRect();
+          var outsideRow = event.clientX < bounds.left ||
+            event.clientX > bounds.right ||
+            event.clientY < bounds.top ||
+            event.clientY > bounds.bottom;
+          var hitElement = document.elementFromPoint(event.clientX, event.clientY);
+          var isOnActiveCard = hitElement && hitElement.closest(".speaker_card") === activeCard;
+
+          if (outsideRow || !isOnActiveCard) clearActiveCard();
+        });
+      } else {
+        speakerCards.addEventListener("click", function (event) {
+          var card = event.target.closest(".speaker_card");
+          if (!card || !speakerCards.contains(card)) return;
+
+          event.preventDefault();
+          if (activeCard === card) {
+            clearActiveCard();
+          } else {
+            clearActiveCard();
+            activateCard(card, false);
+          }
+        });
+      }
     }, 300);
   });
 
