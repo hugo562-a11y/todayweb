@@ -770,6 +770,21 @@ nav a:hover:after {
   border-radius: 16px 0px 16px 0px;
 }
 
+/* 2026 agenda palette: replace the previous beige / gold treatment with blue. */
+#sec3 .agenda_content { background: #0a3c70; }
+#sec3 .agenda_head { background: linear-gradient(90deg, #126da5 0%, #082b5a 100%); }
+#sec3 .agenda_body { background: #edf7fc; }
+#sec3 .agenda_body_item .agenda_title,
+#sec3 .agenda_body_item .agenda_txt,
+#sec3 .agenda_body_item .agenda_host,
+#sec3 .award_info { color: #0a355f; }
+#sec3 .agenda_body_item .agenda_txt,
+#sec3 .agenda_body_item .agenda_host { border-color: #8ebfda; }
+#sec3 .agenda_body_item .agenda_txt span,
+#sec3 .agenda_body_item .agenda_host span,
+#sec3 .award_info span { color: #147fbc; }
+#sec3 .agenda_gate { background: linear-gradient(90deg, #1c91c4 0%, #0a4d91 100%); }
+
 .speaker_wrap {
   display: inline-block;
   width: 1200px;
