@@ -174,6 +174,7 @@ $(document).ready(function () {
 
       if (supportsHover) {
         speakerCards.addEventListener("pointerover", function (event) {
+          if (event.pointerType !== "mouse") return;
           activateCard(event.target.closest(".speaker_card"), true);
         });
 
