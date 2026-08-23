@@ -129,6 +129,15 @@ $(document).ready(function () {
     $("html,body").animate({ scrollTop: $(ta_value).offset().top }, 800);
   });
 
+  // Enable speaker-card interactions only after the initial image layout settles.
+  window.addEventListener("load", function () {
+    var speakerCards = document.querySelector(".speaker_cards");
+    if (!speakerCards) return;
+    window.setTimeout(function () {
+      speakerCards.classList.add("is-ready");
+    }, 300);
+  });
+
   $(".NAV_btn_wrap").on("click", function (e) {
     e.stopPropagation();
     $("#NAV").toggleClass("reveal");
