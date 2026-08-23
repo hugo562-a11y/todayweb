@@ -162,7 +162,20 @@ $(document).ready(function () {
         }, 320);
       });
 
-      speakerCards.addEventListener("pointerleave", clearActiveCard);
+      // Do not use pointerleave on the flex row: when a card expands, the
+      // browser can briefly retarget the pointer to a neighbouring card.
+      // Instead, only close it after the pointer has genuinely left the row.
+      document.addEventListener("pointermove", function (event) {
+        if (!activeCard || event.pointerType !== "mouse") return;
+
+        var bounds = speakerCards.getBoundingClientRect();
+        var outsideRow = event.clientX < bounds.left - 24 ||
+          event.clientX > bounds.right + 24 ||
+          event.clientY < bounds.top - 24 ||
+          event.clientY > bounds.bottom + 24;
+
+        if (outsideRow) clearActiveCard();
+      });
     }, 300);
   });
 
