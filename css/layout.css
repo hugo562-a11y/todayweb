@@ -2689,7 +2689,7 @@ input[type="checkbox"] {
 .speaker_showcase { background: #07152d; }
 .speaker_showcase .sec_title { color: #fff; }
 .speaker_cards { display: flex; align-items: flex-start; gap: 14px; margin-top: 48px; }
-.speaker_card { position: relative; height: 360px; min-width: 0; flex: 1 1 0; overflow: hidden; background: linear-gradient(180deg, #183c68, #07152d); transition: flex-basis .5s cubic-bezier(.16,1,.3,1), transform .35s ease, box-shadow .35s ease; }
+.speaker_card { position: relative; height: 360px; min-width: 0; flex: 1 1 0; overflow: hidden; outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); transition: flex-basis .5s cubic-bezier(.16,1,.3,1), transform .35s ease, box-shadow .35s ease; }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
 .speaker_card:before { content: ""; position: absolute; z-index: 3; top: -35%; left: -100%; width: 48%; height: 180%; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255,255,255,.66), transparent); transform: rotate(18deg); transition: left .75s cubic-bezier(.16,1,.3,1); }
@@ -2699,7 +2699,7 @@ input[type="checkbox"] {
 .speaker_copy p { margin-top: 5px; font-size: 10px; line-height: 1.35; }
 .speaker_short { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .speaker_full { display: none; }
-.speaker_card:hover { z-index: 10; flex: 0 0 360px; height: 360px; transform: translateY(-6px); box-shadow: 0 18px 42px rgba(0,0,0,.38); }
+.speaker_card:hover { z-index: 10; flex: 0 0 360px; height: 360px; transform: translateY(-6px); box-shadow: 0 18px 42px rgba(0,0,0,.38); animation: speakerCardFrame .32s ease-out both; transition-delay: .32s; }
 .speaker_card:hover:before { left: 155%; }
 .speaker_card:hover img {
   position: static;
@@ -2718,6 +2718,7 @@ input[type="checkbox"] {
 .speaker_card:hover .speaker_copy p { margin-top: 9px; font-size: 14px; }
 @media screen and (max-width: 960px) { .speaker_cards { overflow-x: auto; padding-bottom: 18px; } .speaker_card { min-width: 180px; } .speaker_card:hover { flex-basis: 260px; } }
 @media screen and (max-width: 640px) { .speaker_cards { gap: 14px; } .speaker_card { flex: 0 0 76vw; } .speaker_card:hover { flex-basis: 76vw; } }
+@keyframes speakerCardFrame { 0% { outline-color: transparent; box-shadow: 0 0 0 rgba(73,216,255,0); } 45% { outline-color: #49d8ff; box-shadow: 0 0 0 7px rgba(73,216,255,.18), 0 0 28px rgba(73,216,255,.72); } 100% { outline-color: rgba(73,216,255,.55); } }
 
 #sec3.agenda_motion .agenda_info {
   opacity: 0;
