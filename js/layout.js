@@ -129,28 +129,11 @@ $(document).ready(function () {
     $("html,body").animate({ scrollTop: $(ta_value).offset().top }, 800);
   });
 
-  // Keep the active card controlled by the stable card row, rather than by a
-  // card's own hover state. A card changing width then cannot cancel its hover.
-  window.addEventListener("load", function () {
+  // Speaker photos open their bios; transparent edge zones browse the row.
+  function initSpeakerInteraction() {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
     window.setTimeout(function () {
-      speakerCards.classList.add("is-ready");
-      var activeCard = null;
-      var expandTimer = null;
-      var expandAfterFrame = false;
-      var supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      var lastTouchToggle = 0;
-
-      function clearActiveCard() {
-        window.clearTimeout(expandTimer);
-        if (!activeCard) return;
-        activeCard.classList.remove("is-flashing", "is-framed", "is-expanded");
-        speakerCards.classList.remove("has-active-card");
-        expandAfterFrame = false;
-        activeCard = null;
-      }
-
       function positionSpeakerGlow(card, event) {
         if (!card || !event) return;
         var bounds = card.getBoundingClientRect();
@@ -160,93 +143,77 @@ $(document).ready(function () {
         card.style.setProperty("--speaker-glow-y", y.toFixed(2) + "%");
       }
 
-      function showCardFrame(card, lockRow, expandWhenReady) {
-        if (!card || !speakerCards.contains(card) || activeCard) return;
-
-        activeCard = card;
-        expandAfterFrame = Boolean(expandWhenReady);
-        if (lockRow) speakerCards.classList.add("has-active-card");
-        activeCard.classList.add("is-flashing");
-        expandTimer = window.setTimeout(function () {
-          if (!activeCard) return;
-          activeCard.classList.remove("is-flashing");
-          activeCard.classList.add("is-framed");
-          if (expandAfterFrame) activeCard.classList.add("is-expanded");
-        }, 320);
-      }
-
-      function expandActiveCard() {
-        if (!activeCard || activeCard.classList.contains("is-expanded")) return;
-        if (activeCard.classList.contains("is-flashing")) {
-          expandAfterFrame = true;
-        } else {
-          activeCard.classList.add("is-expanded");
-        }
-      }
-
-      function toggleTouchCard(card) {
-        if (!card || !speakerCards.contains(card)) return;
-        if (activeCard === card) {
-          clearActiveCard();
-        } else {
-          clearActiveCard();
-          showCardFrame(card, false, true);
-        }
-      }
-
-      if (supportsHover) {
-        speakerCards.addEventListener("pointerover", function (event) {
-          if (event.pointerType !== "mouse") return;
-          var card = event.target.closest(".speaker_card");
-          positionSpeakerGlow(card, event);
-          showCardFrame(card, true, false);
-        });
-
-        // The visible gaps are deliberate exit zones. During expansion,
-        // inactive cards do not receive the pointer, so a layout reflow cannot
-        // hand the active state to the next card.
-        document.addEventListener("pointermove", function (event) {
-          if (!activeCard || event.pointerType !== "mouse") return;
-
-          var bounds = speakerCards.getBoundingClientRect();
-          var outsideRow = event.clientX < bounds.left ||
-            event.clientX > bounds.right ||
-            event.clientY < bounds.top ||
-            event.clientY > bounds.bottom;
-          var hitElement = document.elementFromPoint(event.clientX, event.clientY);
-          var isOnActiveCard = hitElement && hitElement.closest(".speaker_card") === activeCard;
-
-          if (outsideRow || !isOnActiveCard) {
-            clearActiveCard();
-          } else {
-            positionSpeakerGlow(activeCard, event);
-          }
-        });
-      }
-
-      speakerCards.addEventListener("pointerup", function (event) {
-        if (event.pointerType === "mouse") return;
-        lastTouchToggle = Date.now();
-        toggleTouchCard(event.target.closest(".speaker_card"));
+      speakerCards.addEventListener("pointermove", function (event) {
+        if (event.pointerType !== "mouse") return;
+        var card = event.target.closest(".speaker_card");
+        if (!card) return;
+        card.classList.add("is-hovered");
+        positionSpeakerGlow(card, event);
       });
 
-      // Fallback for older touch browsers that do not provide Pointer Events.
-      speakerCards.addEventListener("click", function (event) {
-        if (Date.now() - lastTouchToggle < 600) return;
+      speakerCards.addEventListener("pointerout", function (event) {
         var card = event.target.closest(".speaker_card");
-        if (!supportsHover) {
-          toggleTouchCard(card);
-        } else if (card && speakerCards.contains(card)) {
-          if (activeCard !== card) {
-            clearActiveCard();
-            showCardFrame(card, true, true);
-          } else {
-            expandActiveCard();
-          }
-        }
+        if (card && !card.contains(event.relatedTarget)) card.classList.remove("is-hovered");
+      });
+
+      speakerCards.addEventListener("click", function (event) {
+        if (touchHasDragged) return;
+        var photo = event.target.closest(".speaker_card > img");
+        if (!photo) return;
+        var card = photo.closest(".speaker_card");
+        if (!card) return;
+        event.preventDefault();
+        event.stopPropagation();
+        $("#speaker_box_cover").attr("src", card.querySelector("img").getAttribute("src"));
+        $("#speaker_box_name").text(card.querySelector("h3").textContent);
+        $("#speaker_box_title").text(card.querySelector(".speaker_copy > span").textContent);
+        var bioData = card.querySelector(".speaker_bio_data");
+        $(".speaker_resume").html(bioData ? bioData.innerHTML : "<span>現任</span><br>" + card.querySelector(".speaker_full").innerHTML);
+        $("#host_info_box").addClass("show");
+      });
+
+      var touchStartX = 0;
+      var touchStartScrollLeft = 0;
+      var touchHasDragged = false;
+      speakerCards.addEventListener("touchstart", function (event) {
+        touchStartX = event.touches[0].clientX;
+        touchStartScrollLeft = speakerCards.scrollLeft;
+        touchHasDragged = false;
+      }, { passive: true });
+      speakerCards.addEventListener("touchmove", function (event) {
+        var distance = event.touches[0].clientX - touchStartX;
+        if (Math.abs(distance) < 4) return;
+        touchHasDragged = true;
+        speakerCards.scrollLeft = touchStartScrollLeft - distance;
+        event.preventDefault();
+      }, { passive: false });
+      speakerCards.addEventListener("touchend", function () {
+        window.setTimeout(function () { touchHasDragged = false; }, 0);
+      });
+
+      var edgeScrollTimer = null;
+      var edgeScrollDirection = 0;
+      function scrollFromEdge() {
+        if (!edgeScrollDirection) return;
+        speakerCards.scrollLeft += edgeScrollDirection * 18;
+      }
+      document.querySelectorAll(".speaker_edge").forEach(function (edge) {
+        edge.addEventListener("mouseenter", function () {
+          edgeScrollDirection = edge.classList.contains("speaker_edge--right") ? 1 : -1;
+          speakerCards.classList.add("is-edge-scrolling");
+          scrollFromEdge();
+          if (!edgeScrollTimer) edgeScrollTimer = window.setInterval(scrollFromEdge, 30);
+        });
+        edge.addEventListener("mouseleave", function () {
+          edgeScrollDirection = 0;
+          if (edgeScrollTimer) window.clearInterval(edgeScrollTimer);
+          edgeScrollTimer = null;
+          speakerCards.classList.remove("is-edge-scrolling");
+        });
       });
     }, 300);
-  });
+  }
+  initSpeakerInteraction();
 
   $(".NAV_btn_wrap").on("click", function (e) {
     e.stopPropagation();
