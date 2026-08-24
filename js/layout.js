@@ -173,21 +173,22 @@ $(document).ready(function () {
       });
 
       var touchStartX = 0;
-      var touchStartScrollLeft = 0;
       var touchHasDragged = false;
       speakerCards.addEventListener("touchstart", function (event) {
         touchStartX = event.touches[0].clientX;
-        touchStartScrollLeft = speakerCards.scrollLeft;
         touchHasDragged = false;
       }, { passive: true });
       speakerCards.addEventListener("touchmove", function (event) {
         var distance = event.touches[0].clientX - touchStartX;
         if (Math.abs(distance) < 4) return;
         touchHasDragged = true;
-        speakerCards.scrollLeft = touchStartScrollLeft - distance;
         event.preventDefault();
       }, { passive: false });
-      speakerCards.addEventListener("touchend", function () {
+      speakerCards.addEventListener("touchend", function (event) {
+        var distance = touchStartX - event.changedTouches[0].clientX;
+        if (Math.abs(distance) > 45) {
+          setActiveSpeaker(activeIndex + (distance > 0 ? 1 : -1), true);
+        }
         window.setTimeout(function () { touchHasDragged = false; }, 0);
       });
 
@@ -201,7 +202,7 @@ $(document).ready(function () {
         activeIndex = Math.max(0, Math.min(cards.length - 1, index));
 
         if (shouldScroll) {
-          speakerCards.scrollLeft = cards[activeIndex].offsetLeft;
+          speakerCards.style.transform = "translateX(-" + (cards[activeIndex].offsetLeft - cards[0].offsetLeft) + "px)";
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {

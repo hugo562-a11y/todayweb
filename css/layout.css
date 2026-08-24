@@ -2835,7 +2835,8 @@ input[type="checkbox"] {
 .speaker_nav[hidden] { display: none; }
 .speaker_bio_hint { margin-top: 12px; color: rgba(255,255,255,.72); font-size: 14px; }
 .speaker_carousel { position: relative; margin-right: 60px; margin-left: 60px; }
-.speaker_cards { display: flex; align-items: flex-start; gap: 20px; margin-top: 28px; padding: 10px 2px 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+.speaker_viewport { overflow: hidden; }
+.speaker_cards { display: flex; align-items: flex-start; gap: 20px; margin-top: 28px; padding: 10px 2px 22px; touch-action: pan-x; transition: transform .45s ease; }
 .speaker_cards::-webkit-scrollbar { display: none; }
 .speaker_dots { display: flex; justify-content: center; gap: 9px; margin-top: 14px; }
 .speaker_dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); cursor: pointer; transition: transform .2s ease, background .2s ease; }
