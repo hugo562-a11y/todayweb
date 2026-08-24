@@ -201,7 +201,7 @@ $(document).ready(function () {
         activeIndex = Math.max(0, Math.min(cards.length - 1, index));
 
         if (shouldScroll) {
-          cards[activeIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+          speakerCards.scrollTo({ left: cards[activeIndex].offsetLeft, behavior: "smooth" });
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
@@ -231,25 +231,6 @@ $(document).ready(function () {
 
       nextButton.addEventListener("click", function () {
         setActiveSpeaker(activeIndex + 1, true);
-      });
-
-      var scrollTicking = false;
-      speakerCards.addEventListener("scroll", function () {
-        if (scrollTicking) return;
-        scrollTicking = true;
-        window.requestAnimationFrame(function () {
-          var closestIndex = 0;
-          var closestDistance = Infinity;
-          cards.forEach(function (card, index) {
-            var distance = Math.abs(card.offsetLeft - speakerCards.scrollLeft);
-            if (distance < closestDistance) {
-              closestDistance = distance;
-              closestIndex = index;
-            }
-          });
-          setActiveSpeaker(closestIndex, false);
-          scrollTicking = false;
-        });
       });
 
       setActiveSpeaker(0, false);
