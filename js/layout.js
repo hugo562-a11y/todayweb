@@ -129,7 +129,7 @@ $(document).ready(function () {
     $("html,body").animate({ scrollTop: $(ta_value).offset().top }, 800);
   });
 
-  // Speaker photos open their bios; transparent edge zones browse the row.
+  // Speaker photos open their bios; arrows browse the fixed-size carousel.
   function initSpeakerInteraction() {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
@@ -191,24 +191,10 @@ $(document).ready(function () {
         window.setTimeout(function () { touchHasDragged = false; }, 0);
       });
 
-      var edgeScrollTimer = null;
-      var edgeScrollDirection = 0;
-      function scrollFromEdge() {
-        if (!edgeScrollDirection) return;
-        speakerCards.scrollLeft += edgeScrollDirection * 18;
-      }
-      document.querySelectorAll(".speaker_edge").forEach(function (edge) {
-        edge.addEventListener("mouseenter", function () {
-          edgeScrollDirection = edge.classList.contains("speaker_edge--right") ? 1 : -1;
-          speakerCards.classList.add("is-edge-scrolling");
-          scrollFromEdge();
-          if (!edgeScrollTimer) edgeScrollTimer = window.setInterval(scrollFromEdge, 30);
-        });
-        edge.addEventListener("mouseleave", function () {
-          edgeScrollDirection = 0;
-          if (edgeScrollTimer) window.clearInterval(edgeScrollTimer);
-          edgeScrollTimer = null;
-          speakerCards.classList.remove("is-edge-scrolling");
+      document.querySelectorAll(".speaker_nav").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var direction = button.classList.contains("speaker_nav--next") ? 1 : -1;
+          speakerCards.scrollBy({ left: direction * speakerCards.clientWidth, behavior: "smooth" });
         });
       });
     }, 300);

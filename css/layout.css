@@ -2827,18 +2827,14 @@ input[type="checkbox"] {
 .speaker_showcase { background: #07152d; }
 .speaker_showcase .sec_title { color: #fff; }
 .speaker_showcase_head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.speaker_controls { display: flex; gap: 10px; }
+.speaker_nav { width: 42px; height: 42px; border: 1px solid rgba(73,216,255,.8); border-radius: 50%; background: transparent; color: #fff; font-size: 22px; line-height: 1; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.speaker_nav:hover, .speaker_nav:focus-visible { background: #49d8ff; color: #07152d; }
 .speaker_bio_hint { margin-top: 12px; color: rgba(255,255,255,.72); font-size: 14px; }
 .speaker_carousel { position: relative; }
-.speaker_cards { display: flex; align-items: flex-start; gap: 20px; margin-top: 28px; padding: 10px 2px 22px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #49d8ff #102a4b; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
-.speaker_cards.is-edge-scrolling { scroll-snap-type: none; }
-.speaker_edge { position: absolute; z-index: 4; top: 10px; bottom: 22px; display: flex; align-items: center; justify-content: center; width: 68px; border: 0; color: transparent; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-align: center; pointer-events: auto; background: transparent; }
-.speaker_edge:before { display: none; }
-.speaker_edge:after { display: none; }
-.speaker_edge--left { left: 0; cursor: w-resize; }
-.speaker_edge--left:before { content: "←"; }
-.speaker_edge--right { right: 0; cursor: e-resize; }
-.speaker_edge--right:before { content: "→"; }
-.speaker_card { position: relative; height: 450px; flex: 0 0 calc((100% - 60px) / 4); min-width: 250px; overflow: hidden; scroll-snap-align: start; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); transition: flex-basis .35s cubic-bezier(.16,1,.3,1), transform .25s ease, box-shadow .25s ease; }
+.speaker_cards { display: flex; align-items: flex-start; gap: 20px; margin-top: 28px; padding: 10px 2px 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+.speaker_cards::-webkit-scrollbar { display: none; }
+.speaker_card { position: relative; height: 450px; flex: 0 0 calc((100% - 60px) / 4); min-width: 0; overflow: hidden; scroll-snap-align: start; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
 .speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; min-height: 118px; padding: 14px; box-sizing: border-box; color: #fff; }
@@ -2848,8 +2844,8 @@ input[type="checkbox"] {
 .speaker_short { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .speaker_full { display: none; }
 .speaker_card.is-hovered:after { background: radial-gradient(circle 110px at var(--speaker-glow-x, 50%) var(--speaker-glow-y, 45%), rgba(255,255,255,.26) 0%, rgba(73,216,255,.12) 38%, transparent 72%), linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); }
-@media screen and (max-width: 960px) { .speaker_card { flex-basis: calc((100% - 20px) / 2); min-width: 230px; height: 400px; } }
-@media screen and (max-width: 640px) { .speaker_showcase_head { align-items: flex-start; } .speaker_edge { width: 42px; } .speaker_cards { gap: 14px; } .speaker_card { flex-basis: 76vw; height: 420px; } }
+@media screen and (min-width: 768px) and (max-width: 1200px) { .speaker_card { flex-basis: calc((100% - 40px) / 3); height: 400px; } }
+@media screen and (max-width: 767px) { .speaker_showcase_head { align-items: flex-start; } .speaker_controls { gap: 6px; } .speaker_nav { width: 36px; height: 36px; } .speaker_cards { gap: 14px; } .speaker_card { flex-basis: 100%; height: 420px; } }
 
 #sec3.agenda_motion .agenda_info {
   opacity: 0;
