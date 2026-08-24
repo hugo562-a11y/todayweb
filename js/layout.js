@@ -201,7 +201,7 @@ $(document).ready(function () {
         activeIndex = Math.max(0, Math.min(cards.length - 1, index));
 
         if (shouldScroll) {
-          speakerCards.scrollTo({ left: cards[activeIndex].offsetLeft, behavior: "smooth" });
+          speakerCards.scrollLeft = cards[activeIndex].offsetLeft;
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
