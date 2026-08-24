@@ -191,12 +191,68 @@ $(document).ready(function () {
         window.setTimeout(function () { touchHasDragged = false; }, 0);
       });
 
-      document.querySelectorAll(".speaker_nav").forEach(function (button) {
-        button.addEventListener("click", function () {
-          var direction = button.classList.contains("speaker_nav--next") ? 1 : -1;
-          speakerCards.scrollBy({ left: direction * speakerCards.clientWidth, behavior: "smooth" });
+      var cards = Array.prototype.slice.call(speakerCards.querySelectorAll(".speaker_card"));
+      var dots = document.querySelector(".speaker_dots");
+      var previousButton = document.querySelector(".speaker_nav--prev");
+      var nextButton = document.querySelector(".speaker_nav--next");
+      var activeIndex = 0;
+
+      function setActiveSpeaker(index, shouldScroll) {
+        activeIndex = Math.max(0, Math.min(cards.length - 1, index));
+
+        if (shouldScroll) {
+          cards[activeIndex].scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+        }
+
+        dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
+          var isActive = dotIndex === activeIndex;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-current", isActive ? "true" : "false");
+        });
+
+        previousButton.hidden = activeIndex === 0;
+        nextButton.hidden = activeIndex === cards.length - 1;
+      }
+
+      cards.forEach(function (card, index) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "speaker_dot";
+        dot.setAttribute("aria-label", "第 " + (index + 1) + " 位講者");
+        dot.addEventListener("click", function () {
+          setActiveSpeaker(index, true);
+        });
+        dots.appendChild(dot);
+      });
+
+      previousButton.addEventListener("click", function () {
+        setActiveSpeaker(activeIndex - 1, true);
+      });
+
+      nextButton.addEventListener("click", function () {
+        setActiveSpeaker(activeIndex + 1, true);
+      });
+
+      var scrollTicking = false;
+      speakerCards.addEventListener("scroll", function () {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        window.requestAnimationFrame(function () {
+          var closestIndex = 0;
+          var closestDistance = Infinity;
+          cards.forEach(function (card, index) {
+            var distance = Math.abs(card.offsetLeft - speakerCards.scrollLeft);
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestIndex = index;
+            }
+          });
+          setActiveSpeaker(closestIndex, false);
+          scrollTicking = false;
         });
       });
+
+      setActiveSpeaker(0, false);
     }, 300);
   }
   initSpeakerInteraction();

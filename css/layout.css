@@ -2832,10 +2832,15 @@ input[type="checkbox"] {
 .speaker_nav--prev { left: -54px; }
 .speaker_nav--next { right: -54px; }
 .speaker_nav:hover, .speaker_nav:focus-visible { background: #49d8ff; color: #07152d; }
+.speaker_nav[hidden] { display: none; }
 .speaker_bio_hint { margin-top: 12px; color: rgba(255,255,255,.72); font-size: 14px; }
 .speaker_carousel { position: relative; margin-right: 60px; margin-left: 60px; }
 .speaker_cards { display: flex; align-items: flex-start; gap: 20px; margin-top: 28px; padding: 10px 2px 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
 .speaker_cards::-webkit-scrollbar { display: none; }
+.speaker_dots { display: flex; justify-content: center; gap: 9px; margin-top: 14px; }
+.speaker_dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); cursor: pointer; transition: transform .2s ease, background .2s ease; }
+.speaker_dot.is-active { background: #49d8ff; transform: scale(1.35); }
+.speaker_dot:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .speaker_card { position: relative; height: 450px; flex: 0 0 calc((100% - 60px) / 4); min-width: 0; overflow: hidden; scroll-snap-align: start; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
