@@ -2827,8 +2827,10 @@ input[type="checkbox"] {
 .speaker_showcase { background: #07152d; }
 .speaker_showcase .sec_title { color: #fff; }
 .speaker_showcase_head { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.speaker_controls { display: flex; gap: 10px; }
-.speaker_nav { width: 42px; height: 42px; border: 1px solid rgba(73,216,255,.8); border-radius: 50%; background: transparent; color: #fff; font-size: 22px; line-height: 1; cursor: pointer; transition: background .2s ease, color .2s ease; }
+.speaker_controls { position: absolute; z-index: 5; inset: 10px 0 22px; pointer-events: none; }
+.speaker_nav { position: absolute; top: 50%; width: 42px; height: 42px; border: 1px solid rgba(73,216,255,.8); border-radius: 50%; background: rgba(7,21,45,.76); color: #fff; font-size: 22px; line-height: 1; cursor: pointer; pointer-events: auto; transform: translateY(-50%); transition: background .2s ease, color .2s ease; }
+.speaker_nav--prev { left: 12px; }
+.speaker_nav--next { right: 12px; }
 .speaker_nav:hover, .speaker_nav:focus-visible { background: #49d8ff; color: #07152d; }
 .speaker_bio_hint { margin-top: 12px; color: rgba(255,255,255,.72); font-size: 14px; }
 .speaker_carousel { position: relative; }
@@ -2845,7 +2847,7 @@ input[type="checkbox"] {
 .speaker_full { display: none; }
 .speaker_card.is-hovered:after { background: radial-gradient(circle 110px at var(--speaker-glow-x, 50%) var(--speaker-glow-y, 45%), rgba(255,255,255,.26) 0%, rgba(73,216,255,.12) 38%, transparent 72%), linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); }
 @media screen and (min-width: 768px) and (max-width: 1200px) { .speaker_card { flex-basis: calc((100% - 40px) / 3); height: 400px; } }
-@media screen and (max-width: 767px) { .speaker_showcase_head { align-items: flex-start; } .speaker_controls { gap: 6px; } .speaker_nav { width: 36px; height: 36px; } .speaker_cards { gap: 14px; } .speaker_card { flex-basis: 100%; height: 420px; } }
+@media screen and (max-width: 767px) { .speaker_showcase_head { align-items: flex-start; } .speaker_nav { width: 36px; height: 36px; } .speaker_nav--prev { left: 8px; } .speaker_nav--next { right: 8px; } .speaker_cards { gap: 14px; } .speaker_card { flex-basis: 100%; height: 420px; } }
 
 #sec3.agenda_motion .agenda_info {
   opacity: 0;
