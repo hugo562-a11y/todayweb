@@ -157,6 +157,7 @@ $(document).ready(function () {
       });
 
       speakerCards.addEventListener("click", function (event) {
+        if (touchHasDragged) return;
         var photo = event.target.closest(".speaker_card > img");
         if (!photo) return;
         var card = photo.closest(".speaker_card");
@@ -171,32 +172,74 @@ $(document).ready(function () {
         $("#host_info_box").addClass("show");
       });
 
-      var sec1_slider = $("#speaker_slider").lightSlider({
-        item: 4,
-        loop: false,
-        adaptiveHeight: true,
-        controls: false,
-        pager: true,
-        auto: false,
-        enableTouch: false,
-        enableDrag: false,
-        slideMargin: 0,
-        speed: 1000,
-        pause: 4000,
-        responsive: [
-          { breakpoint: 1200, settings: { item: 3 } },
-          { breakpoint: 800, settings: { item: 2, slideMargin: 0, enableTouch: true, enableDrag: true } },
-          { breakpoint: 640, settings: { item: 1, slideMargin: 0, enableTouch: true, enableDrag: true } }
-        ]
+      var touchStartX = 0;
+      var touchHasDragged = false;
+      speakerCards.addEventListener("touchstart", function (event) {
+        touchStartX = event.touches[0].clientX;
+        touchHasDragged = false;
+      }, { passive: true });
+      speakerCards.addEventListener("touchmove", function (event) {
+        var distance = event.touches[0].clientX - touchStartX;
+        if (Math.abs(distance) < 4) return;
+        touchHasDragged = true;
+        event.preventDefault();
+      }, { passive: false });
+      speakerCards.addEventListener("touchend", function (event) {
+        var distance = touchStartX - event.changedTouches[0].clientX;
+        if (Math.abs(distance) > 45) {
+          setActiveSpeaker(activeIndex + (distance > 0 ? 1 : -1), true);
+        }
+        window.setTimeout(function () { touchHasDragged = false; }, 0);
       });
 
-      $(".s_left_arrow").click(function () {
-        sec1_slider.goToPrevSlide();
+      var cards = Array.prototype.slice.call(speakerCards.querySelectorAll(".speaker_card"));
+      var dots = document.querySelector(".speaker_dots");
+      var previousButton = document.querySelector(".speaker_nav--prev");
+      var nextButton = document.querySelector(".speaker_nav--next");
+      var activeIndex = 0;
+
+      function setActiveSpeaker(index, shouldScroll) {
+        activeIndex = Math.max(0, Math.min(cards.length - 1, index));
+
+        if (shouldScroll) {
+          var cardWidth = cards[0].offsetWidth;
+          var gap = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft - cardWidth : 0;
+          var visibleCount = Math.max(1, Math.round((speakerCards.parentElement.clientWidth + gap) / (cardWidth + gap)));
+          var lastStartIndex = Math.max(0, cards.length - visibleCount);
+          var slideIndex = Math.min(activeIndex, lastStartIndex);
+          speakerCards.style.transform = "translateX(-" + (cards[slideIndex].offsetLeft - cards[0].offsetLeft) + "px)";
+        }
+
+        dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
+          var isActive = dotIndex === activeIndex;
+          dot.classList.toggle("is-active", isActive);
+          dot.setAttribute("aria-current", isActive ? "true" : "false");
+        });
+
+        previousButton.hidden = activeIndex === 0;
+        nextButton.hidden = activeIndex === cards.length - 1;
+      }
+
+      cards.forEach(function (card, index) {
+        var dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "speaker_dot";
+        dot.setAttribute("aria-label", "第 " + (index + 1) + " 位講者");
+        dot.addEventListener("click", function () {
+          setActiveSpeaker(index, true);
+        });
+        dots.appendChild(dot);
       });
 
-      $(".s_right_arrow").click(function () {
-        sec1_slider.goToNextSlide();
+      previousButton.addEventListener("click", function () {
+        setActiveSpeaker(activeIndex - 1, true);
       });
+
+      nextButton.addEventListener("click", function () {
+        setActiveSpeaker(activeIndex + 1, true);
+      });
+
+      setActiveSpeaker(0, false);
     }, 300);
   }
   initSpeakerInteraction();
