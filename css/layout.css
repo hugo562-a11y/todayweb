@@ -2845,10 +2845,10 @@ input[type="checkbox"] {
 .speaker_card { position: relative; height: 450px; flex: 0 0 calc((100% - 60px) / 4); min-width: 0; overflow: hidden; scroll-snap-align: start; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
-.speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; min-height: 158px; padding: 16px; box-sizing: border-box; color: #fff; }
-.speaker_copy > span { display: block; overflow: hidden; color: #49d8ff; font-size: 12px; font-weight: 800; letter-spacing: .03em; white-space: nowrap; text-overflow: ellipsis; }
-.speaker_copy h3 { margin-top: 10px; font-size: 26px; line-height: 1; font-weight: 900; }
-.speaker_copy p { margin-top: 9px; font-size: 15px; line-height: 1.45; }
+.speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; min-height: 178px; padding: 18px 16px; box-sizing: border-box; color: #fff; background: rgba(7, 21, 45, .74); }
+.speaker_copy > span { display: block; overflow: hidden; color: #49d8ff; font-size: 14px; font-weight: 800; letter-spacing: .03em; white-space: nowrap; text-overflow: ellipsis; }
+.speaker_copy h3 { margin-top: 11px; font-size: 30px; line-height: 1; font-weight: 900; }
+.speaker_copy p { margin-top: 10px; font-size: 18px; line-height: 1.45; }
 .speaker_short { display: none; }
 .speaker_full { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
 .speaker_card.is-hovered:after { background: radial-gradient(circle 110px at var(--speaker-glow-x, 50%) var(--speaker-glow-y, 45%), rgba(255,255,255,.26) 0%, rgba(73,216,255,.12) 38%, transparent 72%), linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); }

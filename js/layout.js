@@ -212,7 +212,7 @@ $(document).ready(function () {
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
-          var isActive = dotIndex === activeIndex;
+          var isActive = dotIndex === Math.min(activeIndex, 3);
           dot.classList.toggle("is-active", isActive);
           dot.setAttribute("aria-current", isActive ? "true" : "false");
         });
@@ -221,7 +221,7 @@ $(document).ready(function () {
         nextButton.hidden = activeIndex === lastStartIndex;
       }
 
-      cards.forEach(function (card, index) {
+      Array.prototype.slice.call(cards, 0, 4).forEach(function (card, index) {
         var dot = document.createElement("button");
         dot.type = "button";
         dot.className = "speaker_dot";
