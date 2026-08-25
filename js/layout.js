@@ -202,12 +202,7 @@ $(document).ready(function () {
         activeIndex = Math.max(0, Math.min(cards.length - 1, index));
 
         if (shouldScroll) {
-          var cardWidth = cards[0].offsetWidth;
-          var gap = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft - cardWidth : 0;
-          var visibleCount = Math.max(1, Math.round((speakerCards.parentElement.clientWidth + gap) / (cardWidth + gap)));
-          var lastStartIndex = Math.max(0, cards.length - visibleCount);
-          var slideIndex = Math.min(activeIndex, lastStartIndex);
-          speakerCards.style.transform = "translateX(-" + (cards[slideIndex].offsetLeft - cards[0].offsetLeft) + "px)";
+          speakerCards.style.transform = "translateX(-" + (cards[activeIndex].offsetLeft - cards[0].offsetLeft) + "px)";
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
