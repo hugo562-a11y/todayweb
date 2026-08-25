@@ -2849,7 +2849,7 @@ input[type="checkbox"] {
   .portrait_lead .portrait_info p,
   .portrait_info p { font-size: 13px; }
   .full_lineup { grid-template-columns: 1fr; gap: 18px; padding: 22px; }
-  .lineup_names { grid-template-columns: 1fr 1fr; gap: 20px 14px; }
+  .lineup_names { grid-template-columns: 1fr; gap: 20px; }
   .session_ribbon { flex-direction: column; }
 }
 
