@@ -134,28 +134,6 @@ $(document).ready(function () {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
     window.setTimeout(function () {
-      function positionSpeakerGlow(card, event) {
-        if (!card || !event) return;
-        var bounds = card.getBoundingClientRect();
-        var x = Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100));
-        var y = Math.max(0, Math.min(100, (event.clientY - bounds.top) / bounds.height * 100));
-        card.style.setProperty("--speaker-glow-x", x.toFixed(2) + "%");
-        card.style.setProperty("--speaker-glow-y", y.toFixed(2) + "%");
-      }
-
-      speakerCards.addEventListener("pointermove", function (event) {
-        if (event.pointerType !== "mouse") return;
-        var card = event.target.closest(".speaker_card");
-        if (!card) return;
-        card.classList.add("is-hovered");
-        positionSpeakerGlow(card, event);
-      });
-
-      speakerCards.addEventListener("pointerout", function (event) {
-        var card = event.target.closest(".speaker_card");
-        if (card && !card.contains(event.relatedTarget)) card.classList.remove("is-hovered");
-      });
-
       speakerCards.addEventListener("click", function (event) {
         if (touchHasDragged) return;
         var photo = event.target.closest(".speaker_card > img");
