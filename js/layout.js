@@ -172,35 +172,43 @@ $(document).ready(function () {
         $("#host_info_box").addClass("show");
       });
 
+      var touchStartX = 0;
+      var touchHasDragged = false;
+      speakerCards.addEventListener("touchstart", function (event) {
+        touchStartX = event.touches[0].clientX;
+        touchHasDragged = false;
+      }, { passive: true });
+      speakerCards.addEventListener("touchmove", function (event) {
+        var distance = event.touches[0].clientX - touchStartX;
+        if (Math.abs(distance) < 4) return;
+        touchHasDragged = true;
+        event.preventDefault();
+      }, { passive: false });
+      speakerCards.addEventListener("touchend", function (event) {
+        var distance = touchStartX - event.changedTouches[0].clientX;
+        if (Math.abs(distance) > 45) {
+          setActiveSpeaker(activeIndex + (distance > 0 ? 1 : -1), true);
+        }
+        window.setTimeout(function () { touchHasDragged = false; }, 0);
+      });
+
       var cards = Array.prototype.slice.call(speakerCards.querySelectorAll(".speaker_card"));
       var dots = document.querySelector(".speaker_dots");
       var previousButton = document.querySelector(".speaker_nav--prev");
       var nextButton = document.querySelector(".speaker_nav--next");
       var activeIndex = 0;
-      var touchHasDragged = false;
 
-      var speakerSlider = $(speakerCards).lightSlider({
-        item: 4,
-        loop: false,
-        adaptiveHeight: true,
-        controls: false,
-        pager: false,
-        auto: false,
-        enableTouch: true,
-        enableDrag: true,
-        slideMargin: 20,
-        speed: 1000,
-        responsive: [
-          { breakpoint: 1200, settings: { item: 3 } },
-          { breakpoint: 768, settings: { item: 1, enableTouch: true, enableDrag: true } }
-        ],
-        onAfterSlide: function (slider) {
-          updateSpeakerState(slider.getCurrentSlideCount() - 1);
-        }
-      });
-
-      function updateSpeakerState(index) {
+      function setActiveSpeaker(index, shouldScroll) {
         activeIndex = Math.max(0, Math.min(cards.length - 1, index));
+
+        if (shouldScroll) {
+          var cardWidth = cards[0].offsetWidth;
+          var gap = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft - cardWidth : 0;
+          var visibleCount = Math.max(1, Math.round((speakerCards.parentElement.clientWidth + gap) / (cardWidth + gap)));
+          var lastStartIndex = Math.max(0, cards.length - visibleCount);
+          var slideIndex = Math.min(activeIndex, lastStartIndex);
+          speakerCards.style.transform = "translateX(-" + (cards[slideIndex].offsetLeft - cards[0].offsetLeft) + "px)";
+        }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
           var isActive = dotIndex === activeIndex;
@@ -218,20 +226,20 @@ $(document).ready(function () {
         dot.className = "speaker_dot";
         dot.setAttribute("aria-label", "第 " + (index + 1) + " 位講者");
         dot.addEventListener("click", function () {
-          speakerSlider.goToSlide(index);
+          setActiveSpeaker(index, true);
         });
         dots.appendChild(dot);
       });
 
       previousButton.addEventListener("click", function () {
-        speakerSlider.goToPrevSlide();
+        setActiveSpeaker(activeIndex - 1, true);
       });
 
       nextButton.addEventListener("click", function () {
-        speakerSlider.goToNextSlide();
+        setActiveSpeaker(activeIndex + 1, true);
       });
 
-      updateSpeakerState(0);
+      setActiveSpeaker(0, false);
     }, 300);
   }
   initSpeakerInteraction();
