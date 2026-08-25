@@ -199,9 +199,7 @@ $(document).ready(function () {
       var activeIndex = 0;
 
       function getLastStartIndex() {
-        var cardWidth = cards[0].offsetWidth;
-        var gap = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft - cardWidth : 0;
-        var visibleCount = Math.max(1, Math.round((speakerCards.parentElement.clientWidth + gap) / (cardWidth + gap)));
+        var visibleCount = window.innerWidth < 768 ? 1 : (window.innerWidth <= 1200 ? 3 : 4);
         return Math.max(0, cards.length - visibleCount);
       }
 
