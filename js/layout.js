@@ -186,13 +186,14 @@ $(document).ready(function () {
         controls: false,
         pager: false,
         auto: false,
-        enableTouch: true,
-        enableDrag: true,
-        slideMargin: 20,
+        enableTouch: false,
+        enableDrag: false,
+        slideMargin: 0,
         speed: 1000,
         responsive: [
           { breakpoint: 1200, settings: { item: 3 } },
-          { breakpoint: 768, settings: { item: 1, enableTouch: true, enableDrag: true } }
+          { breakpoint: 800, settings: { item: 2, slideMargin: 0, enableTouch: true, enableDrag: true } },
+          { breakpoint: 640, settings: { item: 1, slideMargin: 0, enableTouch: true, enableDrag: true } }
         ],
         onAfterSlide: function (slider) {
           updateSpeakerState(slider.getCurrentSlideCount() - 1);
@@ -200,16 +201,19 @@ $(document).ready(function () {
       });
 
       function updateSpeakerState(index) {
-        activeIndex = Math.max(0, Math.min(cards.length - 1, index));
+        var visibleCount = window.innerWidth < 640 ? 1 : (window.innerWidth < 800 ? 2 : (window.innerWidth < 1200 ? 3 : 4));
+        var lastStartIndex = Math.max(0, cards.length - visibleCount);
+        activeIndex = Math.max(0, Math.min(lastStartIndex, index));
+        var activeDotIndex = activeIndex === lastStartIndex ? cards.length - 1 : activeIndex;
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
-          var isActive = dotIndex === activeIndex;
+          var isActive = dotIndex === activeDotIndex;
           dot.classList.toggle("is-active", isActive);
           dot.setAttribute("aria-current", isActive ? "true" : "false");
         });
 
         previousButton.hidden = activeIndex === 0;
-        nextButton.hidden = activeIndex === cards.length - 1;
+        nextButton.hidden = activeIndex === lastStartIndex;
       }
 
       cards.forEach(function (card, index) {
