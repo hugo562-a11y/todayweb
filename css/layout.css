@@ -2202,7 +2202,7 @@ input[type="checkbox"] {
 .focus_card {
   position: relative;
   min-height: 180px;
-  padding: 28px;
+  padding: 24px 18px;
   box-sizing: border-box;
   overflow-y: auto;
   border-radius: 28px 0 28px 0;
@@ -2675,13 +2675,15 @@ input[type="checkbox"] {
 .lineup_names {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 0;
 }
 
 .lineup_names > span {
+  min-width: 0;
   color: #fff;
   font-size: 18px;
   font-weight: 800;
+  text-align: center;
   transition: color .25s ease, transform .25s ease;
 }
 
