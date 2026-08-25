@@ -198,8 +198,16 @@ $(document).ready(function () {
       var nextButton = document.querySelector(".speaker_nav--next");
       var activeIndex = 0;
 
+      function getLastStartIndex() {
+        var cardWidth = cards[0].offsetWidth;
+        var gap = cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft - cardWidth : 0;
+        var visibleCount = Math.max(1, Math.round((speakerCards.parentElement.clientWidth + gap) / (cardWidth + gap)));
+        return Math.max(0, cards.length - visibleCount);
+      }
+
       function setActiveSpeaker(index, shouldScroll) {
-        activeIndex = Math.max(0, Math.min(cards.length - 1, index));
+        var lastStartIndex = getLastStartIndex();
+        activeIndex = Math.max(0, Math.min(lastStartIndex, index));
 
         if (shouldScroll) {
           speakerCards.style.transform = "translateX(-" + (cards[activeIndex].offsetLeft - cards[0].offsetLeft) + "px)";
@@ -212,7 +220,7 @@ $(document).ready(function () {
         });
 
         previousButton.hidden = activeIndex === 0;
-        nextButton.hidden = activeIndex === cards.length - 1;
+        nextButton.hidden = activeIndex === lastStartIndex;
       }
 
       cards.forEach(function (card, index) {
