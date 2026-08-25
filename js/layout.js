@@ -212,7 +212,7 @@ $(document).ready(function () {
         }
 
         dots.querySelectorAll(".speaker_dot").forEach(function (dot, dotIndex) {
-          var isActive = dotIndex === Math.min(activeIndex, 3);
+          var isActive = dotIndex === activeIndex;
           dot.classList.toggle("is-active", isActive);
           dot.setAttribute("aria-current", isActive ? "true" : "false");
         });
@@ -221,16 +221,28 @@ $(document).ready(function () {
         nextButton.hidden = activeIndex === lastStartIndex;
       }
 
-      Array.prototype.slice.call(cards, 0, 4).forEach(function (card, index) {
-        var dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "speaker_dot";
-        dot.setAttribute("aria-label", "第 " + (index + 1) + " 位講者");
-        dot.addEventListener("click", function () {
-          setActiveSpeaker(index, true);
-        });
-        dots.appendChild(dot);
+      function buildSpeakerDots() {
+        dots.innerHTML = "";
+        for (var index = 0; index <= getLastStartIndex(); index += 1) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "speaker_dot";
+          dot.setAttribute("aria-label", "第 " + (index + 1) + " 個瀏覽位置");
+          (function (targetIndex) {
+            dot.addEventListener("click", function () {
+              setActiveSpeaker(targetIndex, true);
+            });
+          }(index));
+          dots.appendChild(dot);
+        }
+      }
+
+      window.addEventListener("resize", function () {
+        buildSpeakerDots();
+        setActiveSpeaker(activeIndex, true);
       });
+
+      buildSpeakerDots();
 
       previousButton.addEventListener("click", function () {
         setActiveSpeaker(activeIndex - 1, true);
