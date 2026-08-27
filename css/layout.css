@@ -2680,6 +2680,8 @@ input[type="checkbox"] {
   gap: 0;
 }
 
+.lineup_names--single { grid-template-columns: minmax(0, 1fr); }
+
 .lineup_names > span {
   min-width: 0;
   color: #fff;
