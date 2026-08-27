@@ -2885,7 +2885,7 @@ input[type="checkbox"] {
 .speaker_cards::-webkit-scrollbar { display: none; }
 .speaker_dots { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 14px; }
 .speaker_dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: rgba(255,255,255,.35); cursor: pointer; transition: width .2s ease, height .2s ease, background .2s ease; }
-.speaker_dot.is-active { width: 38px; background: #49d8ff; }
+.speaker_dot.is-active { width: 26px; height: 8px; border-radius: 8px; background: #49d8ff; }
 .speaker_dot:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 .speaker_card { position: relative; height: 450px; flex: 0 0 calc((100% - 60px) / 4); min-width: 0; overflow: hidden; scroll-snap-align: start; clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px)); outline: 2px solid transparent; outline-offset: 3px; background: linear-gradient(180deg, #183c68, #07152d); }
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; }
