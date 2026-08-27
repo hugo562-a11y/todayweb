@@ -2674,7 +2674,7 @@ input[type="checkbox"] {
 
 .lineup_names {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
 }
 
@@ -2805,7 +2805,7 @@ input[type="checkbox"] {
   .portrait_info p { font-size: 11px; }
   .portrait_lead .portrait_info { padding: 24px; }
   .portrait_lead .portrait_info h3 { font-size: 34px; }
-  .lineup_names { grid-template-columns: repeat(3, 1fr); }
+  .lineup_names { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media screen and (max-width: 640px) {
