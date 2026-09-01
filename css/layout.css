@@ -821,6 +821,9 @@ nav a:hover:after {
 #sec3 .agenda_body_item .agenda_host .agenda_name { color: #0a355f; }
 #sec3 .agenda_body_item .agenda_host .agenda_position { color: #365064; }
 #sec3 .agenda_gate { color: #fff; background: linear-gradient(90deg, #147eb8 0%, #073d7a 100%); box-shadow: inset 0 0 0 1px rgba(173,225,247,.24); }
+#sec3 .award_body { display: flex; margin: 0; padding: 26px 30px; background: #fbf9eb; }
+#sec3 .award_info { color: #011c2e; line-height: 1.55; }
+#sec3 .award_info span { color: #e89800; }
 
 .speaker_wrap {
   display: inline-block;
@@ -3028,4 +3031,9 @@ input[type="checkbox"] {
   .head_layer--map { right: .9%; top: 26.5%; width: 37.6%; }
   .head_layer--gradient { left: 0; top: 56.2%; width: 66.3%; }
   .head_layer--partners { left: 4.6%; top: 58.6%; width: 46.5%; }
+}
+
+@media screen and (max-width: 960px) {
+  #sec3 .award_body { padding: 24px 20px; }
+  #sec3 .award_info { text-align: left; }
 }
