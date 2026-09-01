@@ -2230,11 +2230,9 @@ input[type="checkbox"] {
 .focus_card h3 { margin-top: 12px; font-size: 24px; font-weight: 800; }
 .focus_card p { margin-top: 10px; font-size: 16px; line-height: 1.7; color: rgba(255,255,255,.88); }
 
-/* Gentle idle motion for the non-agenda, non-form content. */
-#sec1 .intro_txt { animation: contentFloat 5.8s ease-in-out infinite; }
-.focus_card { animation: contentFloat 4.7s ease-in-out infinite; }
-.focus_card:nth-child(2) { animation-duration: 6.1s; animation-delay: .7s; }
-.focus_card:nth-child(3) { animation-duration: 5.4s; animation-delay: 1.4s; }
+/* Keep the forum introduction and its three focus cards still. */
+#sec1 .intro_txt,
+#sec1 .focus_card { animation: none; }
 .focus_card:hover,
 .focus_card:focus-visible,
 .focus_card:active { animation: none; }
@@ -2891,7 +2889,7 @@ input[type="checkbox"] {
 .speaker_card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; cursor: pointer; }
 .speaker_card--gao img { object-position: center top; transform: scale(1.02); }
 .speaker_card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); pointer-events: none; }
-.speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; height: 146px; padding: 10px 16px 14px; box-sizing: border-box; color: #fff; background: rgba(7, 21, 45, .68); }
+.speaker_copy { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; height: 146px; padding: 10px 16px 14px; box-sizing: border-box; color: #fff; background: rgba(7, 21, 45, .68); cursor: pointer; }
 .speaker_copy > span { display: block; overflow: hidden; color: #49d8ff; font-size: 14px; font-weight: 800; letter-spacing: .03em; white-space: nowrap; text-overflow: ellipsis; }
 .speaker_copy h3 { margin-top: 7px; font-size: 28px; line-height: 1; font-weight: 900; }
 .speaker_copy p { margin-top: 7px; font-size: 16px; line-height: 1.35; }

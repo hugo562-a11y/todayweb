@@ -129,7 +129,7 @@ $(document).ready(function () {
     $("html,body").animate({ scrollTop: $(ta_value).offset().top }, 800);
   });
 
-  // Speaker photos open their bios; arrows browse the fixed-size carousel.
+  // Speaker photos and text open their bios; arrows browse the fixed-size carousel.
   function initSpeakerInteraction() {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
@@ -158,10 +158,8 @@ $(document).ready(function () {
 
       speakerCards.addEventListener("click", function (event) {
         if (touchHasDragged) return;
-        var photo = event.target.closest(".speaker_card > img");
-        if (!photo) return;
-        var card = photo.closest(".speaker_card");
-        if (!card) return;
+        var card = event.target.closest(".speaker_card");
+        if (!card || !speakerCards.contains(card)) return;
         event.preventDefault();
         event.stopPropagation();
         $("#speaker_box_cover").attr("src", card.querySelector("img").getAttribute("src"));
