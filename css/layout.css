@@ -2209,7 +2209,7 @@ input[type="checkbox"] {
   min-height: 180px;
   padding: 24px 18px;
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow: hidden;
   border-radius: 28px 0 28px 0;
   color: #fff;
   background: linear-gradient(145deg, #12305d, #176da1);
