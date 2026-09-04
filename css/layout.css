@@ -2223,9 +2223,7 @@ input[type="checkbox"] {
 .focus_card:hover,
 .focus_card:focus-visible,
 .focus_card:active { z-index: 1; transform: translateY(-5px) scale(1.035); box-shadow: 0 24px 46px rgba(1,40,66,.26), 0 0 22px rgba(255,255,255,.22); }
-.focus_card:hover:after,
-.focus_card:focus-visible:after,
-.focus_card:active:after { left: 150%; }
+.focus_card:hover:after { left: 150%; }
 .focus_card > span,
 .focus_card h3,
 .focus_card p { position: relative; z-index: 1; }
