@@ -133,6 +133,11 @@ $(document).ready(function () {
   function initSpeakerInteraction() {
     var speakerCards = document.querySelector(".speaker_cards");
     if (!speakerCards) return;
+    speakerCards.querySelectorAll("img").forEach(function (image) {
+      var source = image.getAttribute("src");
+      if (!source || source.indexOf("images/host") !== 0) return;
+      image.setAttribute("src", "images/speaker-square/" + source.split("/").pop().split("?")[0]);
+    });
     window.setTimeout(function () {
       function positionSpeakerGlow(card, event) {
         if (!card || !event) return;
