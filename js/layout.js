@@ -202,7 +202,10 @@ $(document).ready(function () {
       var activeIndex = 0;
 
       function getLastStartIndex() {
-        var visibleCount = window.innerWidth < 768 ? 1 : (window.innerWidth <= 1200 ? 3 : 4);
+        var viewport = document.querySelector(".speaker_viewport");
+        var cardWidth = cards[0] ? cards[0].offsetWidth : 1;
+        var gap = parseFloat(window.getComputedStyle(speakerCards).gap) || 0;
+        var visibleCount = viewport ? Math.max(1, Math.floor((viewport.clientWidth + gap) / (cardWidth + gap))) : 1;
         return Math.max(0, cards.length - visibleCount);
       }
 
