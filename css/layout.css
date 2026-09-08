@@ -2234,6 +2234,7 @@ input[type="checkbox"] {
 /* Keep the forum introduction and its three focus cards still. */
 #sec1 .intro_txt,
 #sec1 .focus_card { animation: none; }
+#sec1 .intro_txt { text-align: left; }
 .focus_card:hover,
 .focus_card:focus-visible,
 .focus_card:active { animation: none; }
