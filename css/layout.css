@@ -2897,6 +2897,7 @@ input[type="checkbox"] {
 .speaker_copy p { margin-top: 7px; font-size: 16px; line-height: 1.35; }
 .speaker_short { display: none; }
 .speaker_full { display: block; overflow: visible; }
+.speaker_full--compact { font-size: 13px !important; line-height: 1.3 !important; white-space: nowrap; }
 .speaker_card--long-title .speaker_full { font-size: 14px; line-height: 1.3; }
 .speaker_card--compact-title .speaker_full { font-size: 16px; line-height: 1.35; white-space: nowrap; }
 .speaker_card.is-hovered:after { background: radial-gradient(circle 110px at var(--speaker-glow-x, 50%) var(--speaker-glow-y, 45%), rgba(255,255,255,.26) 0%, rgba(73,216,255,.12) 38%, transparent 72%), linear-gradient(transparent 32%, rgba(2,12,30,.96) 75%); }
