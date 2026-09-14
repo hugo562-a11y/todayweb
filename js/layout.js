@@ -139,10 +139,10 @@ $(document).ready(function () {
       image.setAttribute("src", "images/speaker-square/" + source.split("/").pop().split("?")[0]);
     });
     var speakerTitles = {
-      "王儷玲": "臺灣永續金融與企業影響力協會<br>理事長",
+      "王儷玲": "台灣永續金融與企業影響力協會<br>理事長",
       "黃日康": "東方匯理投信<br>總經理暨執行長",
       "高仙桂": "中華民國國家發展委員會政務<br>副主任委員",
-      "黃正忠": "安侯永續發展顧問<br>董事總經理",
+      "黃正忠": "KPMG安侯永續<br>董事總經理",
       "王之杰": "今周刊<br>研發長",
       "曾于哲": "安永台灣 氣候變遷、<br>永續發展與ESG諮詢服務負責人",
       "吳澤欣": "華碩電腦股份有限公司<br>永續長",
@@ -150,7 +150,7 @@ $(document).ready(function () {
       "劉佳雨": "東方匯理投信投資部<br>基金經理",
       "尤昭文": "中華民國投信投顧公會<br>理事長",
       "徐正穎": "哥本哈根基礎建設基金(CIP)<br>台灣區財務長",
-      "許云昇": "信義企業集團<br>企業倫理暨永續推動辦公室 協理"
+      "許云昇": "信義企業集團 協理<br>企業倫理暨永續推動辦公室"
     };
     var compactTitleNames = ["王儷玲", "曾于哲", "謝明華", "徐正穎", "許云昇"];
     speakerCards.querySelectorAll(".speaker_card").forEach(function (card) {
@@ -191,7 +191,8 @@ $(document).ready(function () {
         event.stopPropagation();
         $("#speaker_box_cover").attr("src", card.querySelector("img").getAttribute("src"));
         $("#speaker_box_name").text(card.querySelector("h3").textContent);
-        $("#speaker_box_title").text(card.querySelector(".speaker_copy > span").textContent);
+        var speakerName = card.querySelector("h3").textContent.trim();
+        $("#speaker_box_title").html(speakerTitles[speakerName] || card.querySelector(".speaker_copy > span").textContent);
         var bioData = card.querySelector(".speaker_bio_data");
         $(".speaker_resume").html(bioData ? bioData.innerHTML : "<span>現任</span><br>" + card.querySelector(".speaker_full").innerHTML);
         $("#host_info_box").addClass("show");
