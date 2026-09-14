@@ -158,6 +158,7 @@ $(document).ready(function () {
       var title = card.querySelector(".speaker_full");
       if (!title || !speakerTitles[name]) return;
       title.innerHTML = speakerTitles[name];
+      title.classList.add("speaker_full--ad-title");
       title.classList.toggle("speaker_full--compact", compactTitleNames.indexOf(name) !== -1);
     });
     window.setTimeout(function () {
