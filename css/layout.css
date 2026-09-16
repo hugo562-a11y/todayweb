@@ -2235,6 +2235,8 @@ input[type="checkbox"] {
 #sec1 .intro_txt,
 #sec1 .focus_card { animation: none; }
 #sec1 .intro_txt { text-align: left; }
+#sec1 .intro_txt .intro_line { display: block; margin-bottom: .25em; }
+#sec1 .intro_txt .intro_line:last-child { margin-bottom: 0; }
 .focus_card:hover,
 .focus_card:focus-visible,
 .focus_card:active { animation: none; }
